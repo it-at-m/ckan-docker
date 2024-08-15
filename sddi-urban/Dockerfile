@@ -252,4 +252,8 @@ RUN set -ex && \
 ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
+# Debug jwt api key issue, tmp
+COPY tmp/ckan-ckan-lib-api-token.py /srv/app/src/ckan/ckan/lib/api_token.py
+
+
 USER ckan
