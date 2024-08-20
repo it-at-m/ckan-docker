@@ -71,8 +71,8 @@ def postprocess(data, jti, data_dict):
 def decode(encoded, **kwargs):
     log.error("MB_DEBUG_02: encoded")
     log.error(encoded)    
-    log.error("MB_DEBUG_03: **kwargs")
-    log.error(**kwargs) 
+    log.error("MB_DEBUG_03: **kwargs -> is printed")
+    print(**kwargs) 
     for plugin in _get_plugins():
         log.error("MB_DEBUG_04: plugin:")
         log.error(plugin)
