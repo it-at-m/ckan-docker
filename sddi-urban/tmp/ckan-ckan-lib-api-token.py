@@ -31,11 +31,21 @@ def _get_algorithm():
 
 
 def _get_secret(encode):
+    log.error("MB_DEBUG_01.1: _config_decode_secret")
+    log.error(_config_decode_secret)
     config_key = _config_encode_secret if encode else _config_decode_secret
+    log.error("MB_DEBUG_01.2: _config_key")
+    log.error(config_key)
     secret = config.get(config_key)
+    log.error("MB_DEBUG_01.3: secret")
+    log.error(secret)
     if not secret:
         secret = u"string:" + config.get(_config_secret_fallback, u"")
     type_, value = secret.split(u":", 1)
+    log.error("MB_DEBUG_01.4: type_")
+    log.error(type_)
+    log.error("MB_DEBUG_01.5: value")
+    log.error(value)
     if type_ == u"file":
         with open(value, u"rb") as key_file:
             value = key_file.read()
