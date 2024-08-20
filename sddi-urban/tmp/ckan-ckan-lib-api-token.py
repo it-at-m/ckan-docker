@@ -25,9 +25,8 @@ def _get_plugins():
 
 
 def _get_algorithm():
-    log.error("MB_DEBUG log.error")
-    print("MB_DEBUG: print(config.get(_config_algorithm))")
-    print(config.get(_config_algorithm))
+    log.error("MB_DEBUG_01: config.get(_config_algorithm)")
+    log.error(config.get(_config_algorithm))
     return config.get(_config_algorithm, u"HS256")
 
 
@@ -70,25 +69,24 @@ def postprocess(data, jti, data_dict):
 
 
 def decode(encoded, **kwargs):
-    log.error("MB_DEBUG log.error")
-    print("MB_DEBUG: print(encoded)")
-    print(encoded)    
-    print("MB_DEBUG: print(**kwargs)")
-    print(**kwargs) 
+    log.error("MB_DEBUG_02: encoded")
+    log.error(encoded)    
+    log.error("MB_DEBUG_03: **kwargs")
+    log.error(**kwargs) 
     for plugin in _get_plugins():
-        print("MB_DEBUG plugin: print(plugin)")
-        print(plugin)
+        log.error("MB_DEBUG_04: plugin:")
+        log.error(plugin)
         data = plugin.decode_api_token(encoded, **kwargs)
-        print("MB_DEBUG: if data, print(data)")
+        log.error("MB_DEBUG_05: if data, log.error(data)")
         if data:
-            print(data)
+            log.error(data)
             break
     else:
         try:
-            print("MB_DEBUG jwt: print(_get_secret(encode=False))")
-            print(_get_secret(encode=False))
-            print("MB_DEBUG: print(_get_algorithm())")
-            print(_get_algorithm())
+            log.error("MB_DEBUG_06: _get_secret(encode=False)")
+            log.error(_get_secret(encode=False))
+            log.error("MB_DEBUG_07: _get_algorithm()")
+            log.error(_get_algorithm())
             data = jwt.decode(
                 encoded,
                 _get_secret(encode=False),
