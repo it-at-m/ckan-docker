@@ -11,6 +11,9 @@ from ckan.common import config
 from ckan.logic.schema import default_create_api_token_schema
 from ckan.exceptions import CkanConfigurationException
 
+## MB
+encoded = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJBUmFWTmZNRC1jd2hjcEtEMGtXdzk3bjZHaGtkZVBJOVRpYXVMZFZOUkY3NHhLLS1EZnYxNFhSSjhfUW5tNGNqUWRKNVNMM2J4LVhRMHRSV0JIdjVOdyIsImlhdCI6MTcyNDIyNTQ5OX0.ygJMwLmxq0C5ImIswjPjAIqy-I-2EDFnkPsYrvCuIDU"
+
 log = logging.getLogger(__name__)
 
 _config_encode_secret = u"api_token.jwt.encode.secret"
@@ -21,16 +24,19 @@ _config_algorithm = u"api_token.jwt.algorithm"
 
 
 def _get_plugins():
+    log.error("MB_DEBUG_A: def _get_plugins():")
     return plugins.PluginImplementations(plugins.IApiToken)
 
 
 def _get_algorithm():
+    log.error("MB_DEBUG_B: def get_algorithm():")
     log.error("MB_DEBUG_01: config.get(_config_algorithm)")
     log.error(config.get(_config_algorithm))
     return config.get(_config_algorithm, u"HS256")
 
 
 def _get_secret(encode):
+    log.error("MB_DEBUG_C: def _get_secret(encode):")
     log.error("MB_DEBUG_01.1: _config_decode_secret")
     log.error(_config_decode_secret)
     config_key = _config_encode_secret if encode else _config_decode_secret
@@ -62,10 +68,12 @@ def _get_secret(encode):
 
 
 def into_seconds(dt):
+    log.error("MB_DEBUG_D: ef into_seconds(dt):")
     return timegm(dt.timetuple())
 
 
 def get_schema():
+    log.error("MB_DEBUG_E: def get_schema():")
     schema = default_create_api_token_schema()
     for plugin in _get_plugins():
         schema = plugin.create_api_token_schema(schema)
@@ -73,12 +81,14 @@ def get_schema():
 
 
 def postprocess(data, jti, data_dict):
+    log.error("MB_DEBUG_F: def postprocess(data, jti, data_dict):")
     for plugin in _get_plugins():
         data = plugin.postprocess_api_token(data, jti, data_dict)
     return data
 
 
 def decode(encoded, **kwargs):
+    log.error("MB_DEBUG_F: def decode(encoded, **kwargs):")
     log.error("MB_DEBUG_02: encoded")
     log.error(encoded)    
     log.error("MB_DEBUG_03: **kwargs -> is printed")
@@ -112,6 +122,7 @@ def decode(encoded, **kwargs):
 
 
 def encode(data, **kwargs):
+    log.error("MB_DEBUG_G: def encode(data, **kwargs):")
     for plugin in _get_plugins():
         token = plugin.encode_api_token(data, **kwargs)
         if token:
@@ -128,12 +139,14 @@ def encode(data, **kwargs):
 
 
 def add_extra(result):
+    log.error("MB_DEBUG_H: def add_extra(result):")
     for plugin in _get_plugins():
         result = plugin.add_extra_fields(result)
     return result
 
 
 def get_user_from_token(token, update_access_time=True):
+    log.error("MB_DEBUG_I: gdef get_user_from_token(token, update_access_time=True):")
     data = decode(token)
     if not data:
         return
