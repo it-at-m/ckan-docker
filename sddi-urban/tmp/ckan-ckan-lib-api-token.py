@@ -118,10 +118,10 @@ def decode(encoded, **kwargs):
             # TODO: add signal for performing extra work, like removing
             # expired tokens
             log.error(u"Cannot decode JWT token: %s", e)
-            log.error("------------------------------------------")
             data = None
     log.error("MB_DEBUG_07: data")
     log.error(data)
+    log.error("------------------------------------------")
     return data
 
 ##
@@ -158,6 +158,7 @@ def add_extra(result):
 
 
 def get_user_from_token(token, update_access_time=True):
+    token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJBUmFWTmZNRC1jd2hjcEtEMGtXdzk3bjZHaGtkZVBJOVRpYXVMZFZOUkY3NHhLLS1EZnYxNFhSSjhfUW5tNGNqUWRKNVNMM2J4LVhRMHRSV0JIdjVOdyIsImlhdCI6MTcyNDIyNTQ5OX0.ygJMwLmxq0C5ImIswjPjAIqy-I-2EDFnkPsYrvCuIDU"
     log.error("MB_DEBUG_10: ## def get_user_from_token(token, update_access_time=True):")
     log.error("MB_DEBUG_10: token:")
     log.error(token)
