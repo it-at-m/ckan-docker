@@ -162,11 +162,11 @@ USER root
 ENV CKAN__PLUGINS "image_view text_view recline_view webpage_view \
     scheming_datasets scheming_groups scheming_organizations \
     spatial_metadata spatial_query spatial_harvest_metadata_api \
-    composite hierarchy_display hierarchy_form lhm lhm_theme \
+    composite hierarchy_form lhm lhm_theme hierarchy_display \
     resourcedictionary datastore xloader hierarchy_group_form \
     password_policy resource_proxy geo_view geojson_view wmts_view shp_view \
     harvest ckan_harvester csw_harvester waf_harvester doc_harvester \
-    gdpr iso envvars"
+    gdpr iso noanonaccess envvars"
 
 # Copy python wheels from build stage
 COPY --from=extbuild /wheels ${APP_DIR}/ext_wheels
