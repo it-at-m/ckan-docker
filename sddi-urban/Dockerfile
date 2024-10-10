@@ -130,15 +130,15 @@ RUN set -ex && \
     git+${CKANEXT_ISO_GITHUB_URL}.git@${CKANEXT_ISO_VERSION}#egg=ckanext-iso
 
 ## ckanext-keycloak ##########################################################
-ARG CKANEXT_KEYCLOAK_VERSION="v2.1"
+ARG CKANEXT_KEYCLOAK_VERSION="7b008db"
 ENV CKANEXT_KEYCLOAK_VERSION=${CKANEXT_KEYCLOAK_VERSION}
-ENV CKANEXT_KEYCLOAK_GITHUB_URL="https://github.com/keitaroinc/ckanext-keycloak"
+ENV CKANEXT_KEYCLOAK_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-keycloak"
 
 RUN set -ex && \
   pip install -r \
-    https://raw.githubusercontent.com/keitaroinc/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
   curl -o /wheels/ckanext-keycloak.txt \
-    https://raw.githubusercontent.com/keitaroinc/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
 
