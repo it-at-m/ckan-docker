@@ -143,13 +143,13 @@ RUN set -ex && \
     git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
 
 # ckanext-noanonaccess ##########################################################
-#ARG CKANEXT_NOANONACCESS_VERSION="v2.0.4"
-#ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
-#ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/datopian/ckanext-noanonaccess"
-#
-#RUN set -ex && \
-#  pip wheel --wheel-dir=/wheels \
-#    git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
+ARG CKANEXT_NOANONACCESS_VERSION="v2.0.4"
+ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
+ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/datopian/ckanext-noanonaccess"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 
 # #############################################################################
@@ -166,7 +166,7 @@ ENV CKAN__PLUGINS "image_view text_view recline_view webpage_view \
     resourcedictionary datastore xloader hierarchy_group_form \
     password_policy resource_proxy geo_view geojson_view wmts_view shp_view \
     harvest ckan_harvester csw_harvester waf_harvester doc_harvester \
-    gdpr iso keycloak envvars"
+    gdpr iso keycloak noanonaccess envvars"
 
 # Copy python wheels from build stage
 COPY --from=extbuild /wheels ${APP_DIR}/ext_wheels
@@ -226,8 +226,8 @@ RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-keycloak
 
 # ckanext-noanonaccess #############################################################
-#RUN set -ex && \
-#  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-noanonaccess
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-noanonaccess
 
 # install supervisor ########################################################
 RUN set -ex && \
