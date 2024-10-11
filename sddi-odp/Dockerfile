@@ -228,6 +228,19 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+https://github.com/MarijaKnezevic/ckanext-spatial.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial
 
+## ckanext-keycloak ##########################################################
+ARG CKANEXT_KEYCLOAK_VERSION="d569409"
+ENV CKANEXT_KEYCLOAK_VERSION=${CKANEXT_KEYCLOAK_VERSION}
+ENV CKANEXT_KEYCLOAK_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-keycloak"
+
+RUN set -ex && \
+  pip install -r \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
+  curl -o /wheels/ckanext-keycloak.txt \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
+
 ###############################################################################
 # Runtime stage
 ###############################################################################
@@ -237,7 +250,7 @@ ENV CKAN__PLUGINS "image_view text_view recline_view recline_map_view recline_gr
   webpage_view openapi_view datastore xloader ogdmunich pages showcase resource_proxy geo_view geojson_view wmts_view shp_view \
   harvest ckan_harvester csw_harvester dcat dcatde \
   dcat_rdf_harvester dcat_json_harvester dcat_json_interface structured_data \
-  spatial_metadata spatial_query scheming_datasets envvars"
+  spatial_metadata spatial_query scheming_datasets keycloak envvars"
 
 # Extra env for compatibility with ckan/base Docker images for downstream k8s
 ENV CKAN_INI=${APP_DIR}/production.ini
