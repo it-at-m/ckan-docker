@@ -259,7 +259,7 @@ ENV CKAN__PLUGINS "image_view text_view recline_view recline_map_view recline_gr
   webpage_view openapi_view datastore xloader ogdmunich pages showcase resource_proxy geo_view geojson_view wmts_view shp_view \
   harvest ckan_harvester csw_harvester dcat dcatde \
   dcat_rdf_harvester dcat_json_harvester dcat_json_interface structured_data \
-  spatial_metadata spatial_query scheming_datasets keycloak envvars"
+  spatial_metadata spatial_query scheming_datasets keycloak noanonaccess envvars"
 
 # Extra env for compatibility with ckan/base Docker images for downstream k8s
 ENV CKAN_INI=${APP_DIR}/production.ini
@@ -374,6 +374,15 @@ RUN set -ex && \
 
 # Copy additional files
 COPY --chown=ckan:ckan who.ini ${APP_DIR}/who.ini
+
+## ckanext-keycloak #################################################################
+RUN set -ex && \
+  pip install -r ${APP_DIR}/ext_wheels/ckanext-keycloak.txt && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-keycloak
+
+# ckanext-noanonaccess #############################################################
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-noanonaccess
 
 # install supervisor ########################################################
 RUN set -ex && \
