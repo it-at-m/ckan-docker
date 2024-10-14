@@ -229,7 +229,7 @@ RUN set -ex && \
     git+https://github.com/MarijaKnezevic/ckanext-spatial.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial
 
 ## ckanext-keycloak ##########################################################
-ARG CKANEXT_KEYCLOAK_VERSION="d569409"
+ARG CKANEXT_KEYCLOAK_VERSION="f8646f8"
 ENV CKANEXT_KEYCLOAK_VERSION=${CKANEXT_KEYCLOAK_VERSION}
 ENV CKANEXT_KEYCLOAK_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-keycloak"
 
@@ -240,6 +240,15 @@ RUN set -ex && \
     https://raw.githubusercontent.com/gislab-augsburg/ckanext-keycloak/${CKANEXT_KEYCLOAK_VERSION}/requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
+
+# ckanext-noanonaccess ##########################################################
+ARG CKANEXT_NOANONACCESS_VERSION="5b88a0f"
+ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
+ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-noanonaccess"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 ###############################################################################
 # Runtime stage
