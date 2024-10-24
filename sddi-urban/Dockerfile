@@ -151,6 +151,19 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
+# ckanext-clamav ##############################################################
+ARG CKANEXT_CALMAV_VERSION="master"
+ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
+ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels -r \
+    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+  curl -o /wheels/ckanext-clamav.txt \
+    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
+
 
 # #############################################################################
 # # Runtime stage
@@ -228,6 +241,13 @@ RUN set -ex && \
 # ckanext-noanonaccess #############################################################
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-noanonaccess
+
+# ckanext-clamav ##############################################################
+# uninstall previous version from sddi-base
+RUN yes | pip uninstall ckanext-clamav
+RUN set -ex && \
+  pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
 
 # install supervisor ########################################################
 RUN set -ex && \
