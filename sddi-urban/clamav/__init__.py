@@ -16,9 +16,6 @@ import struct
 import contextlib
 import re
 import base64
-import logging
-
-log = logging.getLogger(__name__)
 
 scan_response = re.compile(r"^(?P<path>.*): ((?P<virus>.+) )?(?P<status>(FOUND|OK|ERROR))$")
 EICAR = base64.b64decode(b'WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5E' \
@@ -115,18 +112,21 @@ class ClamdNetworkSocket(object):
             self._close_socket()
 
     def scan(self, file):    
-        log.info('MB_clamd_init_01')
-        log.info('SCAN', file)
+        f = open('/srv/app/data/MB_clamd_init_01', 'w')
+        f.writelines('SCAN', file)
+        f.close()
         return self._file_system_scan('SCAN', file)
 
     def contscan(self, file):
-        log.info('MB_clamd_init_02')
-        log.info('CONTSCAN', file)
+        f = open('/srv/app/data/MB_clamd_init_02', 'w')
+        f.writelines('CONTSCAN', file)
+        f.close()
         return self._file_system_scan('CONTSCAN', file)
 
     def multiscan(self, file):
-        log.info('MB_clamd_init_03')
-        log.info('MULTISCAN', file)
+        f = open('/srv/app/data/MB_clamd_init_03', 'w')
+        f.writelines('MULTISCAN', file)
+        f.close()
         return self._file_system_scan('MULTISCAN', file)
 
     def _basic_command(self, command):
@@ -171,11 +171,14 @@ class ClamdNetworkSocket(object):
                     filename, reason, status = self._parse_response(result)
                     dr[filename] = (status, reason)
 
-                log.info('MB_clamd_init_04')
-                log.info(result)
-                log.info(filename)
-                log.info(dr[filename])
-            log.info(dr)
+                f = open('/srv/app/data/MB_clamd_init_04', 'w')
+                f.writelines(result)
+                f.writelines(filename)
+                f.writelines(dr[filename])
+                f.close()
+            f = open('/srv/app/data/MB_clamd_init_04_2', 'w')
+            f.writelines(dr)
+            f.close()
 
             return dr
 
