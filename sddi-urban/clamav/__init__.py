@@ -16,6 +16,9 @@ import struct
 import contextlib
 import re
 import base64
+import logging
+
+log = logging.getLogger(__name__)
 
 scan_response = re.compile(r"^(?P<path>.*): ((?P<virus>.+) )?(?P<status>(FOUND|OK|ERROR))$")
 EICAR = base64.b64decode(b'WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5E' \
@@ -198,28 +201,57 @@ class ClamdNetworkSocket(object):
           - BufferTooLongError: if the buffer size exceeds clamd limits
           - ConnectionError: in case of communication problem
         """
+        log.info("MB_clamav_instream_01")
+        log.info("self")
+        log.info(self)
+        log.info("buff")
+        log.info(buff)
 
         try:
             self._init_socket()
+            log.info("MB_clamav_instream_02")
             self._send_command('INSTREAM')
+            log.info("MB_clamav_instream_03")
 
             max_chunk_size = 1024  # MUST be < StreamMaxLength in /etc/clamav/clamd.conf
 
             chunk = buff.read(max_chunk_size)
+            log.info("MB_clamav_instream_04")
+            log.info("chunk")
+            log.info(chunk)
             while chunk:
+                log.info("MB_clamav_instream_05")
                 size = struct.pack(b'!L', len(chunk))
+                log.info("size")
+                log.info(size)
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
+                log.info("chunk-2")
+                log.info(chunk)
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
+            log.info("MB_clamav_instream_06")
 
             result = self._recv_response()
+            log.info("MB_clamav_instream_07")
+            log.info("result")
+            log.info(result)
 
             if len(result) > 0:
+                log.info("MB_clamav_instream_08, len(result) > 0")
                 if result == 'INSTREAM size limit exceeded. ERROR':
+                    log.info("MB_clamav_instream_08, INSTREAM size limit exceeded")
                     raise BufferTooLongError(result)
+                
 
                 filename, reason, status = self._parse_response(result)
+                log.info("MB_clamav_instream_09")
+                log.info("filename")
+                log.info(filename)
+                log.info("status")
+                log.info(status)
+                log.info("reason")
+                log.info(reason)
                 return {filename: (status, reason)}
         finally:
             self._close_socket()
