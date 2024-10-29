@@ -203,55 +203,77 @@ class ClamdNetworkSocket(object):
         """
         f = open('/srv/app/data/MB_clamav_instream_01', 'w')
         f.writelines("self\n")
-        f.writelines(self)
+        f.writelines(str(self))
         f.writelines("\n")
         f.writelines("buff\n")
-        f.writelines(buff)
+        f.writelines(str(buff))
         f.writelines("\n")
+        f.close()
         print("MB_clamav_instream_01")
         #f.close()
 
         try:
             self._init_socket()
+            f = open('/srv/app/data/MB_clamav_instream_01', 'a')
             f.writelines("MB_clamav_instream_02\n")
+            f.close()
             self._send_command('INSTREAM')
+            f = open('/srv/app/data/MB_clamav_instream_01', 'a')
             f.writelines("MB_clamav_instream_03\n")
+            f.close()
 
             max_chunk_size = 1024  # MUST be < StreamMaxLength in /etc/clamav/clamd.conf
 
             chunk = buff.read(max_chunk_size)
+            f = open('/srv/app/data/MB_clamav_instream_01', 'a')
             f.writelines("MB_clamav_instream_04\n")
             f.writelines("chunk\n")
             f.writelines(str(chunk))
             f.writelines("\n")
+            f.close()
             while chunk:
+                f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                 f.writelines("MB_clamav_instream_05\n")
+                f.close()
                 size = struct.pack(b'!L', len(chunk))
+                f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                 f.writelines("size\n")
                 f.writelines(str(size))
                 f.writelines("\n")
+                f.close()
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
+                f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                 f.writelines("chunk-2")
                 f.writelines(str(chunk))
                 f.writelines("\n")
+                f.close()
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
+            f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
             f.writelines("MB_clamav_instream_06\n")
+            f.close()
 
             result = self._recv_response()
+            f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
             f.writelines("MB_clamav_instream_07\n")
             f.writelines("result\n")
             f.writelines(str(result) + '\n')
+            f.close()
 
             if len(result) > 0:
+                f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                 f.writelines("MB_clamav_instream_08, len(result) > 0\n")
+                f.close()
                 if result == 'INSTREAM size limit exceeded. ERROR':
+                    f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                     f.writelines("MB_clamav_instream_08, INSTREAM size limit exceeded\n")
+                    f.close()
                     raise BufferTooLongError(result)
                 
 
                 filename, reason, status = self._parse_response(result)
+                f = open('/srv/app/data/MB_clamav_instream_01', 'a') 
                 f.writelines("MB_clamav_instream_09\n")
                 f.writelines("filename\n")
                 f.writelines(str(filename) + '\n')
@@ -259,12 +281,11 @@ class ClamdNetworkSocket(object):
                 f.writelines(str(status) + '\n')
                 f.writelines("reason\n")
                 f.writelines(str(reason) + '\n')
+                f.close()
                 return {filename: (status, reason)}
         
         finally:
             self._close_socket()
-
-        f.close()
 
     def stats(self):
         """
