@@ -201,60 +201,70 @@ class ClamdNetworkSocket(object):
           - BufferTooLongError: if the buffer size exceeds clamd limits
           - ConnectionError: in case of communication problem
         """
-        log.info("MB_clamav_instream_01")
-        log.info("self")
-        log.info(self)
-        log.info("buff")
-        log.info(buff)
+        f = open('/srv/app/data/MB_clamav_instream_01', 'w')
+        f.writelines("self\n")
+        f.writelines(self)
+        f.writelines("\n")
+        f.writelines("buff\n")
+        f.writelines(buff)
+        f.writelines("\n")
+        print("MB_clamav_instream_01")
+        #f.close()
 
         try:
             self._init_socket()
-            log.info("MB_clamav_instream_02")
+            f.writelines("MB_clamav_instream_02\n")
             self._send_command('INSTREAM')
-            log.info("MB_clamav_instream_03")
+            f.writelines("MB_clamav_instream_03\n")
 
             max_chunk_size = 1024  # MUST be < StreamMaxLength in /etc/clamav/clamd.conf
 
             chunk = buff.read(max_chunk_size)
-            log.info("MB_clamav_instream_04")
-            log.info("chunk")
-            log.info(chunk)
+            f.writelines("MB_clamav_instream_04\n")
+            f.writelines("chunk\n")
+            f.writelines(str(chunk))
+            f.writelines("\n")
             while chunk:
-                log.info("MB_clamav_instream_05")
+                f.writelines("MB_clamav_instream_05\n")
                 size = struct.pack(b'!L', len(chunk))
-                log.info("size")
-                log.info(size)
+                f.writelines("size\n")
+                f.writelines(str(size))
+                f.writelines("\n")
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
-                log.info("chunk-2")
-                log.info(chunk)
+                f.writelines("chunk-2")
+                f.writelines(str(chunk))
+                f.writelines("\n")
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
-            log.info("MB_clamav_instream_06")
+            f.writelines("MB_clamav_instream_06\n")
 
             result = self._recv_response()
-            log.info("MB_clamav_instream_07")
-            log.info("result")
-            log.info(result)
+            f.writelines("MB_clamav_instream_07\n")
+            f.writelines("result\n")
+            f.writelines(str(result) + '\n')
 
             if len(result) > 0:
-                log.info("MB_clamav_instream_08, len(result) > 0")
+                f.writelines("MB_clamav_instream_08, len(result) > 0\n")
                 if result == 'INSTREAM size limit exceeded. ERROR':
-                    log.info("MB_clamav_instream_08, INSTREAM size limit exceeded")
+                    f.writelines("MB_clamav_instream_08, INSTREAM size limit exceeded\n")
                     raise BufferTooLongError(result)
                 
 
                 filename, reason, status = self._parse_response(result)
-                log.info("MB_clamav_instream_09")
-                log.info("filename")
-                log.info(filename)
-                log.info("status")
-                log.info(status)
-                log.info("reason")
-                log.info(reason)
+                f.writelines("MB_clamav_instream_09\n")
+                f.writelines("filename\n")
+                f.writelines(str(filename) + '\n')
+                f.writelines("status\n")
+                f.writelines(str(status) + '\n')
+                f.writelines("reason\n")
+                f.writelines(str(reason) + '\n')
                 return {filename: (status, reason)}
+        
         finally:
             self._close_socket()
+
+        f.close()
 
     def stats(self):
         """
