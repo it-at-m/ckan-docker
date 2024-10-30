@@ -143,7 +143,7 @@ RUN set -ex && \
     git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
 
 # ckanext-noanonaccess ##########################################################
-ARG CKANEXT_NOANONACCESS_VERSION="5b88a0f"
+ARG CKANEXT_NOANONACCESS_VERSION="72bd333"
 ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
 ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-noanonaccess"
 
