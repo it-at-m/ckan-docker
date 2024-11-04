@@ -277,5 +277,6 @@ RUN echo "${TZ}" > /etc/timezone
 USER ckan
 
 # change uwsgi conf files
-COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
-COPY uwsgi/basic-auth-uwsgi.conf /srv/app/basic-auth-uwsgi.conf
+#COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
+#COPY uwsgi/basic-auth-uwsgi.conf /srv/app/basic-auth-uwsgi.conf
+COPY uwsgi/ckan-uwsgi.ini /srv/app/src/ckan/ckan-uwsgi.ini
