@@ -198,12 +198,18 @@ class ClamdNetworkSocket(object):
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
                 print('XXXXXXXXXXX 3')
+                f = open('/srv/app/data/MB_clamav_instream_01', 'w') 
+                f.writelines("XXXXXXXXXXX 3 chunk\n")
+                f.writelines(str(len(chunk)))
+                f.writelines('\n')
+                f.writelines(chunk)
+                f.close()
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
 
             print('XXXXXXXXXXX 4')
-            f = open('/srv/app/data/MB_clamav_instream_01', 'w') 
-            f.writelines("MB_clamav_instream_06\n")
+            f = open('/srv/app/data/MB_clamav_instream_02', 'w') 
+            f.writelines("XXXXXXXXXXX 4 socket.send")
             f.close()
 
             result = self._recv_response()
