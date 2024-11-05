@@ -202,6 +202,9 @@ class ClamdNetworkSocket(object):
             self.clamd_socket.send(struct.pack(b'!L', 0))
 
             print('XXXXXXXXXXX 4')
+            f = open('/srv/app/data/MB_clamav_instream_01', 'w') 
+            f.writelines("MB_clamav_instream_06\n")
+            f.close()
 
             result = self._recv_response()
 
