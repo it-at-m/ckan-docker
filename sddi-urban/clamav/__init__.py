@@ -190,21 +190,28 @@ class ClamdNetworkSocket(object):
             chunk = buff.read(max_chunk_size)
 
             while chunk:
+                print('-------------')
                 print('XXXXXXXXXXX 1')
                 size = struct.pack(b'!L', len(chunk))
                 print('XXXXXXXXXXX 2')
-                print(size)
+                print(len(chunk))
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
                 print('XXXXXXXXXXX 3')
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
 
+            print('XXXXXXXXXXX 4')
+
             result = self._recv_response()
+
+            print('XXXXXXXXXXX 5')
 
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
                     raise BufferTooLongError(result)
+                
+                    print('XXXXXXXXXXX 6')
                 
 
                 filename, reason, status = self._parse_response(result)
