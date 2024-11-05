@@ -202,7 +202,7 @@ class ClamdNetworkSocket(object):
                 f.writelines("XXXXXXXXXXX 3 chunk\n")
                 f.writelines(str(len(chunk)))
                 f.writelines('\n')
-                f.writelines(chunk)
+                f.writelines(str(chunk))
                 f.close()
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
