@@ -190,38 +190,26 @@ class ClamdNetworkSocket(object):
             chunk = buff.read(max_chunk_size)
 
             while chunk:
-                print('-------------')
-                print('XXXXXXXXXXX 1')
                 size = struct.pack(b'!L', len(chunk))
-                print('XXXXXXXXXXX 2')
-                print(len(chunk))
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
-                print('XXXXXXXXXXX 3')
-                f = open('/srv/app/data/MB_clamav_instream_01', 'w') 
-                f.writelines("XXXXXXXXXXX 3 chunk\n")
-                f.writelines(str(len(chunk)))
-                f.writelines('\n')
-                f.writelines(str(chunk))
+                f = open('/srv/app/data/clamd_instream', 'w') 
+                f.write("prevent timeout error")
                 f.close()
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
 
-            print('XXXXXXXXXXX 4')
-            f = open('/srv/app/data/MB_clamav_instream_02', 'w') 
-            f.writelines("XXXXXXXXXXX 4 socket.send")
-            f.close()
+            #f = open('/srv/app/data/MB_clamav_instream_02', 'w') 
+            #f.writelines("XXXXXXXXXXX 4 socket.send")
+            #f.close()
 
             result = self._recv_response()
 
-            print('XXXXXXXXXXX 5')
+            print('clamav scan successfull')
 
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
-                    raise BufferTooLongError(result)
-                
-                    print('XXXXXXXXXXX 6')
-                
+                    raise BufferTooLongError(result)           
 
                 filename, reason, status = self._parse_response(result)
                 return {filename: (status, reason)}
