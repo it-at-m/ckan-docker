@@ -193,19 +193,13 @@ class ClamdNetworkSocket(object):
                 size = struct.pack(b'!L', len(chunk))
                 self.clamd_socket.send(size + chunk)
                 chunk = buff.read(max_chunk_size)
-                f = open('/srv/app/data/clamd_instream', 'w') 
-                f.write("prevent timeout error")
-                f.close()
+                #f = open('/srv/app/data/clamd_instream', 'w') 
+                #f.write("prevent timeout error")
+                #f.close()
 
             self.clamd_socket.send(struct.pack(b'!L', 0))
 
-            #f = open('/srv/app/data/MB_clamav_instream_02', 'w') 
-            #f.writelines("XXXXXXXXXXX 4 socket.send")
-            #f.close()
-
             result = self._recv_response()
-
-            print('clamav scan successfull')
 
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
@@ -249,12 +243,18 @@ class ClamdNetworkSocket(object):
         """
         receive line from clamd
         """
+        print('debug: _recv_response reached')
         try:
             with contextlib.closing(self.clamd_socket.makefile('rb')) as f:
+                print('debug: _recv_response 2')
                 return f.readline().decode('utf-8').strip()
+                
         except (socket.error, socket.timeout):
             e = sys.exc_info()[1]
+            print('debug: _recv_response 2')
+            print(str(e))
             raise ConnectionError("Error while reading from socket: {0}".format(e.args))
+            
 
     def _recv_response_multiline(self):
         """
@@ -281,6 +281,8 @@ class ClamdNetworkSocket(object):
         try:
             return scan_response.match(msg).group("path", "virus", "status")
         except AttributeError:
+            print('MB_debug_clamd_parse_response')
+            print(msg)
             raise ResponseError(msg.rsplit("ERROR", 1)[0])
 
 

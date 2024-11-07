@@ -258,7 +258,7 @@ COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
 # tmp debug clamav #####
-#COPY clamav/__init__.py /usr/local/lib/python3.8/dist-packages/clamd/__init__.py
+COPY clamav/__init__.py /usr/local/lib/python3.8/dist-packages/clamd/__init__.py
 
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
