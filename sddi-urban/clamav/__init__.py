@@ -201,6 +201,9 @@ class ClamdNetworkSocket(object):
 
             result = self._recv_response()
 
+            print('debug: instream result:')
+            print(result)
+
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
                     raise BufferTooLongError(result)           
@@ -247,11 +250,13 @@ class ClamdNetworkSocket(object):
         try:
             with contextlib.closing(self.clamd_socket.makefile('rb')) as f:
                 print('debug: _recv_response 2')
+                print(f.readline().decode('utf-8').strip())
                 return f.readline().decode('utf-8').strip()
                 
         except (socket.error, socket.timeout):
             e = sys.exc_info()[1]
-            print('debug: _recv_response 2')
+            print('debug: _recv_response 3')
+            print(sys.exc_info())
             print(str(e))
             raise ConnectionError("Error while reading from socket: {0}".format(e.args))
             
@@ -278,10 +283,14 @@ class ClamdNetworkSocket(object):
         """
         parses responses for SCAN, CONTSCAN, MULTISCAN and STREAM commands.
         """
+        print('MB_debug_clamd_parse_response 1')
         try:
+            print('MB_debug_clamd_parse_response 2')
+            print(str(scan_response))
+            print(str(scan_response.match(msg).group("path", "virus", "status")))
             return scan_response.match(msg).group("path", "virus", "status")
         except AttributeError:
-            print('MB_debug_clamd_parse_response')
+            print('MB_debug_clamd_parse_response 3')
             print(msg)
             raise ResponseError(msg.rsplit("ERROR", 1)[0])
 
