@@ -201,8 +201,8 @@ class ClamdNetworkSocket(object):
 
             result = self._recv_response()
 
-            #print('debug: instream result:')
-            #print(result)
+            print('debug: instream result:')
+            print(result)
 
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
@@ -250,7 +250,6 @@ class ClamdNetworkSocket(object):
         try:
             with contextlib.closing(self.clamd_socket.makefile('rb')) as f:
                 print('debug: _recv_response 2')
-                print(f.readline().decode('utf-8').strip())
                 return f.readline().decode('utf-8').strip()
                 
         except (socket.error, socket.timeout):
