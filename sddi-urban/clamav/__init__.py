@@ -201,8 +201,8 @@ class ClamdNetworkSocket(object):
 
             result = self._recv_response()
 
-            print('debug: instream result:')
-            print(result)
+            #print('debug: instream result:')
+            #print(result)
 
             if len(result) > 0:
                 if result == 'INSTREAM size limit exceeded. ERROR':
