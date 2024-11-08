@@ -152,7 +152,7 @@ RUN set -ex && \
     git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 # ckanext-clamav ##############################################################
-ARG CKANEXT_CALMAV_VERSION="6b43e81"
+ARG CKANEXT_CALMAV_VERSION="bbda25a"
 ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
 
