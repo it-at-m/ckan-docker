@@ -152,7 +152,7 @@ RUN set -ex && \
     git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 # ckanext-clamav ##############################################################
-ARG CKANEXT_CALMAV_VERSION="f977527"
+ARG CKANEXT_CALMAV_VERSION="1e7e840"
 ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
 
@@ -258,7 +258,7 @@ COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
 # tmp debug clamav #####
-COPY clamav/__init__.py /usr/local/lib/python3.8/dist-packages/clamd/__init__.py
+#COPY clamav/__init__.py /usr/local/lib/python3.8/dist-packages/clamd/__init__.py
 
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
