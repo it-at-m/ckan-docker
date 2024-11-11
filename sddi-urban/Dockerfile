@@ -179,7 +179,7 @@ ENV CKAN__PLUGINS "image_view text_view recline_view webpage_view \
     resourcedictionary datastore xloader hierarchy_group_form \
     password_policy resource_proxy geo_view geojson_view wmts_view shp_view \
     harvest ckan_harvester csw_harvester waf_harvester doc_harvester \
-    gdpr iso keycloak noanonaccess envvars"
+    gdpr iso keycloak noanonaccess clamav envvars"
 
 # Copy python wheels from build stage
 COPY --from=extbuild /wheels ${APP_DIR}/ext_wheels
