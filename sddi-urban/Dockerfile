@@ -152,7 +152,7 @@ RUN set -ex && \
     git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 # ckanext-clamav ##############################################################
-ARG CKANEXT_CALMAV_VERSION="bbda25a"
+ARG CKANEXT_CALMAV_VERSION="66c1335"
 ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
 
@@ -257,9 +257,6 @@ COPY supervisor/supervisor-ckan-worker.conf /etc/supervisor/conf.d
 COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
-# tmp debug clamav #####
-#COPY clamav/__init__.py /usr/local/lib/python3.8/dist-packages/clamd/__init__.py
-
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
   ckan config-tool "${CKAN_INI}" "ckanext.geoview.ol_viewer.formats = wms kml" && \
@@ -275,8 +272,3 @@ ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
 USER ckan
-
-# change uwsgi conf files
-#COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
-#COPY uwsgi/basic-auth-uwsgi.conf /srv/app/basic-auth-uwsgi.conf
-#COPY uwsgi/ckan-uwsgi.ini /srv/app/src/ckan/ckan-uwsgi.ini
