@@ -1,354 +1,146 @@
-<h1 align="center">SDDI CKAN Docker</h1>
+<h1 align="center">SDDI CKAN Docker, Image SDDI-URBAN</h1>
 
-<p align="center">
-  <em>
-  <a title="Smart District Data Infrastructure" href="https://www.asg.ed.tum.de/gis/projekte/sddi/">Smart District Data Infrastructure (SDDI)</a>
-  enabled Docker images for
-  <a title="ckan.org" href="https://ckan.org/">CKAN</a>
-  </em>
-  <br />
-  <br />
-  <a href="https://github.com/tum-gis/ckan-docker/issues/new/choose">Report Bug</a>
-  ·
-  <a href="https://github.com/tum-gis/ckan-docker/issues/new/choose">Request Feature</a>
-  <br />
-  <br />
-  <a href="https://github.com/tum-gis/ckan-docker/releases" title="Latest release">
-    <img src="https://img.shields.io/github/v/release/tum-gis/ckan-docker?sort=semver&logo=docker">
-  </a>
-  <br />
-  </a>
-  <a href="https://github.com/tum-gis/ckan-docker/actions/workflows/release.yml">
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/tum-gis/ckan-docker/release.yml?label=build: release">
-  </a>
-  <a href="https://github.com/tum-gis/ckan-docker/actions/workflows/edge.yml">
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/tum-gis/ckan-docker/edge.yml?label=build: edge">
-  </a>
-  </a>
-  <a href="https://github.com/tum-gis/ckan-docker/actions/workflows/devel.yml">
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/tum-gis/ckan-docker/devel.yml?label=build: devel">
-  </a>
-  <br />
-  <a href="https://doi.org/10.5281/zenodo.7784078">
-    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7784078.svg" alt="DOI" />
-  </a>
-</p>
+ 
 
-This repository provides [CKAN](https://github.com/ckan) Docker images for the
-[`sddi-ckan-k8s`](https://github.com/tum-gis/sddi-ckan-k8s) Helm chart.
-The images contain CKAN itself compiled with a set of CKAN extension to add functionality required for
-the SDDI concept and beyond that.
-All images are available form `ghcr.io/tum-gis` Github container registry.
-See [packages](https://github.com/orgs/tum-gis/packages?repo_name=ckan-docker) for all image flavors and tags.
+Dieses Repository geht aus den Entwicklungen der Landeshauptstadt München (LHM) für das Förderprojekt
+[„Connected Urban Twins“](https://www.connectedurbantwins.de) (CUT) hervor. Diese knüpfen an die Entwicklungen des Lehrstuhls für Geoinformatik der Technischen Universität München (TUM) im Bereich [Smart District Data Infrastructure](https://www.asg.ed.tum.de/en/gis/projects/smart-district-data-infrastructure/) (SDDI) an. Das Repository stellt ein [CKAN](https://github.com/ckan) Docker Image als Lösung für 
+Metadatenkataloge urbaner digitaler Zwillinge zur Verfügung und kann in Kombination mit dem [`sddi-ckan-k8s`](https://github.com/tum-gis/sddi-ckan-k8s) 
+Helm chart verwendet werden.
+Das Image enthält CKAN selbst, kompiliert mit einem Satz an CKAN extensions 
+und Anpassungen, um Funktionalität für das Konzept urbaner digitaler Zwillinge hinzuzufügen.
 
-## :book: Table of content
 
-- [:book: Table of content](#book-table-of-content)
-- [:inbox\_tray: Image flavor overview](#inbox_tray-image-flavor-overview)
-  - [`sddi-base`](#sddi-base)
-  - [`sddi`](#sddi)
-  - [`sddi-social`](#sddi-social)
-- [:1234: Image versioning](#1234-image-versioning)
-  - [Development image versions](#development-image-versions)
-  - [CKAN and CKAN extension versions](#ckan-and-ckan-extension-versions)
-- [:rocket: Usage](#rocket-usage)
-- [:book: Configuration an documentation](#book-configuration-an-documentation)
-- [:hammer\_and\_wrench: Contributing](#hammer_and_wrench-contributing)
-  - [Contributors](#contributors)
-    - [Github contributors to this repo](#github-contributors-to-this-repo)
-- [:mortar\_board: Research](#mortar_board-research)
-  - [Publications](#publications)
-  - [Cite this repository](#cite-this-repository)
-- [:handshake: Thanks](#handshake-thanks)
-- [:memo: License](#memo-license)
+## :book: Inhaltsverzeichnis
 
-## :inbox_tray: Image flavor overview
+- [:book: Inhaltsverzeichnis](#book-inhaltsverzeichnis)
+- [:inbox\_tray: Varianten](#inbox_tray-varianten)
+  - [`sddi-urban`](#sddi-urban)
+- [:1234: Image Versionierung](#1234-image-versionierung)
+  - [CKAN und CKAN Extension Versionen](#ckan-und-ckan-extension-versionen)
+- [:rocket: Verwendung](#rocket-verwendung)
+- [:book: Konfiguration und Dokumentation](#book-konfiguration-und-Dokumentation)
+- [:hammer\_and\_wrench: Mitwirkung](#hammer_and_wrench-mitwirkung)
+- [:handshake: Acknowledgement](handshake-acknowledgement)
 
-The CKAN-SDDI Docker images are released in three flavors, that are described below.
-For each flavor a one [package](https://github.com/orgs/tum-gis/packages?repo_name=ckan-docker)
-exists in this repository, where the image can be pulled.
+## :inbox_tray: Varianten
+
+Die CKAN-SDDI Docker-Images werden in verschiedenen Varianten veröffentlicht, siehe 
+[SDDI-CKAN-K8s](https://github.com/tum-gis/sddi-ckan-k8s). Mit `sddi-urban` wird eine weitere Variante hinzugefügt.
+Sie kann als [Package](https://github.com/orgs/it-at-m/packages?repo_name=ckan-docker) von diesem Repository 
+heruntergeladen werden.
 
 ```bash
-docker pull ghcr.io/tum-gis/ckan-sddi-base
-docker pull ghcr.io/tum-gis/ckan-sddi
-docker pull ghcr.io/tum-gis/ckan-sddi-social
+docker pull ghcr.io/it-at-m/ckan-sddi-urban
 
 ```
 
-### `sddi-base`
+### `sddi-urban`
 
-CKAN base image with a minimal set of extensions required for SDDI.
-Default SDDI groups and topics are preinstalled.
-This image is used as base image for the other images. If you plan to extend the SDDI images,
-use this as base image.
+`sddi-base` + einige CKAN extensions für erweiterte Daten- und Ressource Vorschau sowie Optionen zur Beschreibung,
+erweiterte Unterstützung für Import-/ Export, Harvesting und Sicherheit. Einige Extensions von `sddi-base`
+sind installiert, aber deaktiviert. Diese können leicht wieder aktiviert werden, indem man sie über die Helm Chart Values
+in die Plugin Liste in der CKAN Konfigurationsdatei integriert. Insgesamt sind folgende Plugins aktiviert: 
+
+```yaml
+plugins: >
+  image_view text_view recline_view webpage_view
+  scheming_datasets scheming_groups scheming_organizations
+  spatial_metadata spatial_query spatial_harvest_metadata_api
+  composite hierarchy_form lhm lhm_theme hierarchy_display
+  resourcedictionary datastore xloader hierarchy_group_form
+  password_policy resource_proxy geo_view geojson_view wmts_view shp_view
+  harvest ckan_harvester csw_harvester waf_harvester doc_harvester
+  gdpr iso keycloak noanonaccess clamav envvars
+```
+
+Diese Image beinhaltet außerdem ein etwas anderes Set and vorinstallierten SDDI Gruppen und Themen
+well as the option of custom theming and custom metadata schemas, inspired by the requirements
+sowie die Option einer angepassten graphischen Oberfläche und maßgeschneiderten Metadatenschemata,
+inspiriert durch die Anforderungen der Landeshauptstadt München (LHM)
 
 ```text
-ghcr.io/tum-gis/ckan-sddi-base
+ghcr.io/it-at-m/ckan-sddi-urban
 ```
 
-### `sddi`
+## :1234: Image Versionierung
 
-`sddi-base` + commonly used CKAN extensions for e.g. extended data format and preview support.
-This is the image most people will usually want.
+Die Images in diesem Repository sind versioniert und getagged nach den
+[Releases](https://github.com/it-at-m/ckan-docker/releases) dieses Repositories.
+Das `latest` Tag kennzeichnet den letzten produktiven Release.
 
-```text
-ghcr.io/tum-gis/ckan-sddi
-```
+Alle verfügbaren Tags sind in den packages jedes Images aufgelistet:
 
-### `sddi-social`
+- [`sddi-urban`](https://github.com/it-at-m/ckan-docker/pkgs/container/ckan-sddi-urban)
 
-`sddi` + optional CKAN extension for social media features, that may require staff
-for moderation of social media content.
-
-```text
-ghcr.io/tum-gis/ckan-sddi-social
-```
-
-## :1234: Image versioning
-
-The images in this repo are versioned and tagged according to the
-[releases](https://github.com/tum-gis/ckan-docker/releases) of this repository.
-The `latest` tag points to the latest release number. The `edge` version is built from the
-latest commit to the `main` branch of this repo.
-
-All available tags are listed in the packages of each image:
-
-- [`sddi-base`](https://github.com/tum-gis/ckan-docker/pkgs/container/ckan-sddi-base)
-- [`sddi`](https://github.com/tum-gis/ckan-docker/pkgs/container/ckan-sddi)
-- [`sddi-social`](https://github.com/tum-gis/ckan-docker/pkgs/container/ckan-sddi-social)
-
-### Development image versions
-
-For development purposes the `devel` images, which are build from the latest commit to the `devel` branch are published.
-The `devel` images are used for testing and may contain errors.
-The CKAN and CKAN extension versions used for each image are listed in the table below.
-
-For debugging we provide a *debug* version for each image version.
-These images are indicated by the `-debug` suffix on the image tag, e.g. `latest-debug`, `0.0.6-debug`, `edge-debug` or `devel-debug`.
-The debug images have the FLASK debug toolbar enabled and all required debugging dependencies installed.
-Read more on CKAN's debug mode in the
-[official docs](https://docs.ckan.org/en/latest/maintaining/configuration.html#debug).
-Debug images are available starting from `v0.0.6`.
-
-> **Warning**: The debug image versions should not be used in a production environment!
-> With debug mode enabled, a visitor to your site could execute malicious commands.
-
-Furthermore, for each commit to a [Pull request](https://github.com/tum-gis/ckan-docker/pulls) all image flavors are build.
-These images are published in the
-[`ckan-sddi-dev`](https://github.com/orgs/tum-gis/packages/container/package/ckan-sddi-dev)
-package. Images are named following this pattern:
-
-`ghcr.io/tum-gis/ckan-sddi-dev:<IMAGE FLAVOR>-pr-<PR NUMBER>-[-debug]`
-`ghcr.io/tum-gis/ckan-sddi-dev:<IMAGE FLAVOR>-pr-<PR NUMBER>-<SHORT-SHA>[-debug]`
-
-The image without the `SHORT-SHA` refer to the *latest* build of a pull request.
-
-For instance, for commit 19a2e64 to PR tum-gis/ckan-docker#26 following images are build:
-
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-base-pr-26`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-base-pr-26-debug`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-base-pr-26-19a2e64`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-base-pr-26-19a2e64-debug`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-pr-26`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-pr-26-debug`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-pr-26-19a2e64`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-pr-26-19a2e64-debug`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-social-pr-26`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-social-pr-26-debug`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-social-pr-26-19a2e64`
-- `ghcr.io/tum-gis/ckan-sddi-dev:sddi-social-pr-26-19a2e64-debug`
-
-This registry will be cleared periodically.
-
-### CKAN and CKAN extension versions
+### CKAN und CKAN Extension Versionen
 
 CKAN version: `2.9.9`
 CKAN base image: `ghcr.io/keitaroinc/ckan:2.9.9-focal`
 
-The CKAN catalog platform uses several extensions to provide the functionality
-needed for the SDDI concept. The table below lists the included extensions with
-the currently used version. Depending of the version of the upstream repository
-of the individual extensions, the version refers either to a *release version*
-or *commit hash*.
+Die CKAN-Katalogplattform verwendet mehrere Erweiterungen, um die für das SDDI-Konzept erforderliche Funktionalität 
+bereitzustellen. Die folgende Tabelle listet die enthaltenen Erweiterungen mit der derzeit verwendeten Version auf. 
+Je nach Version des upstream-Repositorys der einzelnen Erweiterungen bezieht sich die Version entweder auf eine 
+*Release-Version* oder auf einen *Commit-Hash*.
 
-To ensure stable versioning for the images, the versions in the `Dockerfiles`
-are alway pinned to a stable release number or commit hash.
+Um eine stabile Versionierung der Images sicherzustellen, sind die Versionen in den `Dockerfiles` immer auf eine
+stabile Versionsnummer oder einen Commit-Hash festgelegt.
 
-> **Note:** Version pinning is only applied for release versions. The `edge`
-> image may depend on upstream branches instead.
+> **Hinweis:** Die Versionsfestlegung wird nur für Release-Versionen angewendet.
+> Weitere Entwicklungs-Images können stattdessen von upstream-Branches abhängen.
 
-| Extension | Version | `sddi-base` | `sddi` | `sddi-social` | Description |
-|---|---|:---:|:---:|:---:|---|
-| [`scheming`](https://github.com/MarijaKnezevic/ckanext-scheming) | `f98daec` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Configure and share CKAN dataset metadata forms. |
-| [`hierarchy`](https://github.com/ckan/ckanext-hierarchy) | `v1.2.0` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Allows to organize organizations and groups in a hierarchy tree (nested groups/orgs). |
-| [`grouphierarchysddi`](https://github.com/tum-gis/ckanext-grouphierarchy-sddi) |  `1.1.4` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Extends `hierarchy` with pre-defined groups and topics of the SDDI concept. |
-| [`relation`](https://github.com/tum-gis/ckanext-relation-sddi) | `1.0.3` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Enables to create and visualize different types of relations (*realated_to*, *depends_on*, *part_of*) between catalog entries. |
-| [`spatial`](https://github.com/MarijaKnezevic/ckanext-spatial) | `c2118b9` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Provides the ability to search for datasets according to a given spatial extent. |
-| [`datesearch`](https://github.com/MarijaKnezevic/ckanext-datesearch) | `1.0.2` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Provides the ability to search for datasets according to a given time frame. The search includes all datasets, in which the time of validity overlaps in at least one second with the search time frame. |
-| [`repeating`](https://github.com/MarijaKnezevic/ckanext-repeating) | `1.0.0` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | This extension provides a way to store repeating fields in CKAN datasets, resources, organizations and groups. |
-| [`composite`](https://github.com/EnviDat/ckanext-composite) | `1e6d7bb` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | The extension allows to store structured dataset metadata, single or multiple fields. Only one level of subfields is possible. The subfields can be basic text, date type or dropboxes. |
-| [`restricted`](https://github.com/MarijaKnezevic/ckanext-restricted) | `1.0.0` |  | :heavy_check_mark: | :heavy_check_mark: | CKAN extension to restrict the accessibility to the resources of a dataset. This way the package metadata is accesible but not the data itself (resource). The resource access restriction level can be individualy defined for every package. |
-| [`dcat`](https://github.com/ckan/ckanext-dcat) | `v1.4.0` |  | :heavy_check_mark: | :heavy_check_mark: | Allow CKAN to expose and consume metadata from other catalogs using RDF documents serialized using DCAT. |
-| [`geoview`](https://github.com/ckan/ckanext-geoview) | `v0.0.20` |  | :heavy_check_mark: | :heavy_check_mark: | This extension contains view plugins to display geospatial files and services in CKAN. |
-| [`disqus`](https://github.com/ckan/ckanext-disqus) |  |  |  | :heavy_check_mark: | The Disqus extension allows site visitors to comment on individual packages using an AJAX-based commenting system. The downsides of this plugin are that comments are not stored locally and user information is not shared between CKAN and the commenting system. |
-| [`password_policy`](https://github.com/keitaroinc/ckanext-password-policy) | `5618dc9`|:heavy_check_mark:  |:heavy_check_mark:| :heavy_check_mark: | CKAN extension that adds password policy for all the users. |
 
-## :rocket: Usage
+| Extension | Version | `sddi-base` | `sddi` | `sddi-social` | `sddi-urban` | Beschreibung |
+|---|---|:---:|:---:|:---:|:---:|---|
+| [`scheming`](https://github.com/MarijaKnezevic/ckanext-scheming), [`scheming (sddi-urban)`](https://github.com/gislab-augsburg/ckanext-scheming) | `f98daec`, `a7fdd9c`| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Konfiguration und teilen von CKAN Metadaten-Formularen. |
+| [`hierarchy`](https://github.com/ckan/ckanext-hierarchy) | `v1.2.0` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Erlaubt es, Organisationen und Gruppen in hierarchisch zu organisieren (Obergruppen, Untergruppen und -Organisationen). |
+| [`grouphierarchysddi`](https://github.com/tum-gis/ckanext-grouphierarchy-sddi) |  `1.1.3` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  | Erweitert `hierarchy` Mit vordefinierten Gruppen und Themen des SDDI-Konzepts. |
+| [`relation`](https://github.com/tum-gis/ckanext-relation-sddi) | `1.0.3` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  | Macht es möglich, verschiedene Arten von Beziehungen (*realated_to*, *depends_on*, *part_of*) zwischen Katalogeinträgen zu erstellen und zu visualisieren. |
+| [`spatial`](https://github.com/MarijaKnezevic/ckanext-spatial) | `c2118b9` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Bietet die Möglichkeit, über ihre räumliche Ausdehnung nach Datensätzen zu suchen. |
+| [`datesearch`](https://github.com/MarijaKnezevic/ckanext-datesearch) | `1.0.2` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  | Bietet die Möglichkeit, nach Datensätzen entsprechend eines gegebenen Zeitrahmens zu suchen. Die Suche umfasst alle Datensätze, bei denen die Gültigkeitszeit mindestens eine Sekunde mit dem Suchzeitrahmen überschneidet. |
+| [`repeating`](https://github.com/MarijaKnezevic/ckanext-repeating) | `1.0.0` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  | Diese Erweiterung bietet eine Möglichkeit, wiederkehrende Felder in CKAN-Datensätzen, -Ressourcen, -Organisationen und -Gruppen zu speichern. |
+| [`composite`](https://github.com/EnviDat/ckanext-composite) | `1e6d7bb` | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Die Erweiterung ermöglicht das Speichern strukturierter Metadaten für Datensätze, einzelne oder mehrere Felder. Die Unterfelder können einfacher Text, Datentyp oder Dropdown-Listen sein. |
+| [`restricted`](https://github.com/MarijaKnezevic/ckanext-restricted) | `1.0.0` |  | :heavy_check_mark: | :heavy_check_mark: |  | CKAN-Erweiterung zur Einschränkung des Zugriffs auf die Ressourcen eines Datensatzes. So sind die Metadaten des Pakets zugänglich, jedoch nicht die Daten selbst (Ressource). Das Zugriffsrestriktion-Level für die Ressource kann individuell für jedes Paket definiert werden.  |
+| [`dcat`](https://github.com/ckan/ckanext-dcat) | `v1.4.0` |  | :heavy_check_mark: | :heavy_check_mark: |  | Ermöglicht es CKAN, Metadaten aus anderen Katalogen zu exponieren und zu konsumieren, indem RDF-Dokumente verwendet werden, die mit DCAT serialisiert sind. |
+| [`geoview`](https://github.com/ckan/ckanext-geoview) | `v0.0.20` |  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Diese Erweiterung enthält Ansichts-Plugins, um raumbezogene Dateien und Dienste (z.B. WMS) in CKAN anzuzeigen. |
+| [`disqus`](https://github.com/ckan/ckanext-disqus) |  |  |  | :heavy_check_mark: |  | Die Disqus-Erweiterung ermöglicht es den Besuchern der Website, Kommentare zu einzelnen Paketen über ein AJAX-basiertes Kommentarsystem abzugeben. |
+| [`password_policy`](https://github.com/keitaroinc/ckanext-password-policy) | `5618dc9`|:heavy_check_mark:  |:heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark: | CKAN-Erweiterung, die eine Passwortrichtlinie für alle Benutzer hinzufügt. |
+| [`resourcedictionary`](https://github.com/keitaroinc/ckanext-resourcedictionary) | `v1.0.0` |  |  |  | :heavy_check_mark: | Erweitert die Standardfunktionalität des CKAN Data Dictionary, indem die Möglichkeit hinzugefügt wird, ein Data Dictionary zu erstellen, bevor die tatsächlichen Daten in den Datenspeicher hochgeladen werden..  |
+| [`xloader`](https://github.com/ckan/ckanext-xloader) | `1.0.1` |  |  |  | :heavy_check_mark: | Bietet eine schnellere und robustere Möglichkeit, Daten in CKANs DataStore zu laden. |
+| [`lhm`](https://github.com/MandanaMoshref/ckanext-lhm) | `d28dbfa` |  |  |  | :heavy_check_mark: | Fügt Optionen für ein benutzerdefiniertes Metadaten-Schema, benutzerdefinierte Frontend-Gestaltung und ein angepasstes Set von Gruppen und Themen hinzu, inspiriert durch die Anforderungen an Datenkataloge für kommunale und städtische Digitale Zwillinge. |
+| [`harvest`](https://github.com/ckan/ckanext-harvest) | `v1.5.6` |  |  |  | :heavy_check_mark: | Bietet ein Framework und Verwaltungstools für das automatische Harvesting anderer Metadatenkataloge. |
+| [`glab`](https://github.com/gislab-augsburg/ckanext-glab/tree/gdpr) | `0612d22` |  |  |  | :heavy_check_mark: |  Fügt erweiterte Sicherheits- und Datenschutz-Funktionen hinzu. |
+| [`iso`](https://github.com/gislab-augsburg/ckanext-iso) | `c4c28a8` |  |  |  | :heavy_check_mark: | Überarbeitung und Anpassung des CSW-Harvesters von ckanext-spatial an die Anforderungen für das Harvesting von Geoportalen mit ISO-19115 Metadaten.  |
+| [`noanonaccess`](https://github.com/gislab-augsburg/ckanext-iso) | `v2.0.4` |  |  |  | :heavy_check_mark: | Bietet die Option, den Zugang zu einem Metadatenkatalog oder bestimmten Funktionen auf registrierte Benutzer zu beschränken. |
+| [`keycloak`](https://github.com/gislab-augsburg/ckanext-keycloak) | `5859aec` |  |  |  | :heavy_check_mark: | Fügt Optionen für Single Sign-On hinzu und ermöglicht es Benutzern, sich mit Keycloak zu authentifizieren, anstatt ein neues Benutzerkonto zu erstellen. |
+| [`clamav`](https://github.com/gislab-augsburg/ckanext-clamav) | `c483b5d` |  |  |  | :heavy_check_mark: | Scannt hochgeladene Ressourcen-Dateien auf Malware mit der ClamD-Library. |
 
-The images provided in this repo are designed for the
-[`sddi-ckan-k8s`](https://github.com/tum-gis/sddi-ckan-k8s) Helm chart. Go to the Helm chart repository
-to find examples an how to run the images.
 
-## :book: Configuration an documentation
+## :rocket: Verwendung
 
-The configuration of the Docker images is mainly done using environment variables using the
-naming convention of [`ckanext-envvars`](https://github.com/okfn/ckanext-envvars).
-Refer to the documentation of [`ckan`](https://docs.ckan.org/en/latest/maintaining/configuration.html)
-and the extensions listed below to find the available configuration options.
+Die in diesem Repository bereitgestellten Images sind für den [`sddi-ckan-k8s`](https://github.com/tum-gis/sddi-ckan-k8s) 
+Helm-Chart konzipiert. Im Helm-Chart-Repository sind Beispiele zu finden, wie die Images ausgeführt werden können.
 
-## :hammer_and_wrench: Contributing
+## :book: Konfiguration und Dokumentation
 
-Bug fixes, issue reports and contributions are greatly appreciated.
+Die Konfiguration der Docker-Images erfolgt hauptsächlich über Umgebungsvariablen unter Verwendung der 
+Namenskonvention von [`ckanext-envvars`](https://github.com/okfn/ckanext-envvars). Die verfügbaren Konfigurationsoptionen
+sind in der Dokumentation von [`ckan`](https://docs.ckan.org/en/latest/maintaining/configuration.html) und in den
+oben aufgeführten Erweiterungen zu finden.
 
-### Contributors
+## :handshake: Acknowledgement
 
-[Marija Knezevic](https://www.asg.ed.tum.de/en/gis/our-team/staff/marija-knezevic/) and
-[Bruno Willenborg](https://www.asg.ed.tum.de/en/gis/our-team/staff/bruno-willenborg/)
-at Technical University of Munich, Chair of Geoinformatics
-realized the current SDDI CKAN [Docker images](https://github.com/tum-gis/ckan-docker)
-and [Helm chart](https://github.com/tum-gis/sddi-ckan-k8s) and updated the
-CKAN SDDI extensions ([ckanext-grouphierarchy](https://github.com/tum-gis/ckanext-grouphierarchy-sddi),
-[ckanext-relation](https://github.com/tum-gis/ckanext-relation-sddi)) initially implemented by
-[Mandana Moshrefzadeh](https://www.linkedin.com/in/mandana-moshrefzadeh-a4666454)
-and [Wolfgang Deigele](https://www.linkedin.com/in/wolfgang-deigele-329673189).
+Dieses Code-Entwicklungsprojekt wird maßgeblich durch das Förderprojekt
+[„Connected Urban Twins“](https://www.connectedurbantwins.de) (CUT) unterstützt. CUT ist eines von 73 ausgewählten
+Modellprojekten Smart Cities (MPSC) und wird im Rahmen des Förderprogramms
+des Bundesministeriums für Wohnen, Stadtentwicklung und Bauwesen (BMWSB)
+gefördert. Ziel des Projekts ist die Entwicklung und Nutzung urbaner
+digitaler Zwillinge zur Förderung einer nachhaltigen und integrierten
+Stadtentwicklung.
 
-The core concepts, documentation, and [initial implementation](https://github.com/tum-gis/SDDI-CKAN-Docker)
-for SDDI were realized at Technical University of Munich, Chair of Geoinformatics by:
 
-- [Mandana Moshrefzadeh](https://www.linkedin.com/in/mandana-moshrefzadeh-a4666454): Landeshauptstadt München, Kommunalreferat – GeodatenService
-- [Prof. Thomas H. Kolbe](https://www.asg.ed.tum.de/gis/unser-team/lehrstuhlangehoerige/prof-thomas-h-kolbe/):
-  Technical University of Munich, Chair of Geoinformatics
-- [Dr. Andreas Donaubauer](https://www.asg.ed.tum.de/gis/unser-team/lehrstuhlangehoerige/dr-andreas-donaubauer/):
-  Technical University of Munich, Chair of Geoinformatics
-- [Marija Knezevic](https://www.asg.ed.tum.de/gis/unser-team/lehrstuhlangehoerige/marija-knezevic/):
-  Technical University of Munich, Chair of Geoinformatics
-- [Bruno Willenborg](https://www.asg.ed.tum.de/gis/unser-team/lehrstuhlangehoerige/bruno-willenborg/):
-  Technical University of Munich, Chair of Geoinformatics
-- [Kanishk Chaturvedi](https://www.linkedin.com/in/dr-kanishk-chaturvedi), Software AG
-- [Son H. Nguyen](https://www.asg.ed.tum.de/en/gis/our-team/staff/son-h-nguyen/), Technical University of Munich, Chair of Geoinformatics
-- [Wolfgang Deigele](https://www.linkedin.com/in/wolfgang-deigele-329673189), ESRI Deutschland
-
-<p align="center" height="100" line-height="100">
-  <a href="https://www.asg.ed.tum.de/gis/startseite/" target="_blank">
-    <img src="https://github.com/tum-gis/ckan-docker/blob/main/docs/img/tum_logo_h50.png"
-    alt="Technical University of Munich, Chair of Geoinformatics" height="50"/>
+<p align="left" height="200" line-height="200">
+  <a href="https://www.connectedurbantwins.de" target="_blank">
+    <img src="https://www.connectedurbantwins.de/app/uploads/2022/08/logo.png"
+    alt="TwinBy" height="100"/>
   </a>
 </p>
-
-#### Github contributors to this repo
-
-<a href="https://github.com/tum-gis/ckan-docker/graphs/contributors">
-  <img height="40" src="https://contrib.rocks/image?repo=tum-gis/ckan-docker" />
-</a>
-
-## :mortar_board: Research
-
-An overview of the Smart District Data Infrastructure (SDDI) Project is available
-at the Chair of Geoinformatics, Technical University of Munich
-[homepage](https://www.asg.ed.tum.de/gis)
-in [english](https://www.asg.ed.tum.de/en/gis/projects/smart-district-data-infrastructure/)
-and [german](https://www.asg.ed.tum.de/gis/projekte/sddi/).
-
-### Publications
-
-The full list of SDDI related publications is available
-[here](https://www.asg.ed.tum.de/gis/projekte/sddi/#c11942). Some key publications
-are listed below:
-
-- [**Knezevic et al. (2022)**](https://mediatum.ub.tum.de/node?id=1689713):
-  *Managing Urban Digital Twins with an Extended Catalog Service*,
-  Proceedings of the 7th International Smart Data and Smart Cities (SDSC) Conference 2022, ISPRS Annals of Photogrammetry, Remote Sensing and Spatial Information Sciences,
-  [PDF download / DOI](https://doi.org/10.5194/isprs-annals-X-4-W3-2022-119-2022).
-
-- [**Deigele, W. et al. (2021)**](https://mediatum.ub.tum.de/node?id=1684529):
-  *Leitfaden – Geobasierter Digitaler Zwilling nach der SDDI-Methode*,
-  Ed.: Bayern Innovativ, ZD.B – Themenplattform Smart Cities and Regions.
-
-- [**Gackstetter, D. et al. (2021)**](https://mediatum.ub.tum.de/node?id=1636657):
-  *Smart Rural Areas Data Infrastructure (SRADI) – an information logistics framework for digital agriculture based on open standards*,
-  41. GIL-Jahrestagung 2021 - Fokus: Informations- und Kommunikationstechnologie in kritischen Zeiten, Gesellschaft für Informatik e.V. (GI), [PDF download / DOI](https://dl.gi.de/bitstream/handle/20.500.12116/35656/GIL2021_Gackstetter_109-114.pdf?sequence=1&isAllowed=y).
-
-- [**Kolbe, T. H. et al. (2020)**](https://mediatum.ub.tum.de/node?id=1554725):
-  *The Data Integration Challenge in Smart City Projects*,
-  Chair of Geoinformatics, Technical University of Munich,
-  [PDF download / DOI](https://mediatum.ub.tum.de/doc/1554725/671062.pdf).
-
-- [**Moshrefzadeh, M. et al. (2020)**](https://mediatum.ub.tum.de/node?id=1540127):
-  *Towards a Distributed Digital Twin of the Agricultural Landscape*,
-  Journal of Digital Landscape Architecture (5),
-  [PDF download / DOI](https://gispoint.de/fileadmin/user_upload/paper_gis_open/DLA_2020/537690019.pdf).
-
-- [**Moshrefzadeh, M. et al. (2017)**](https://mediatum.ub.tum.de/node?id=1350813):
-  *Integrating and Managing the Information for Smart Sustainable Districts - The Smart District Data Infrastructure (SDDI)*,
-  In: Kolbe, Thomas H.; Bill, Ralf; Donaubauer, Andreas (Hrsg.): Geoinformationssysteme 2017 – Beiträge zur 4. Münchner GI-Runde. . Wichmann Verlag,
-  [PDF download / DOI](https://mediatum.ub.tum.de/download/1350813/1350813.pdf).
-
-- [**Moshrefzadeh, M. and T.H. Kolbe (2016)**](https://mediatum.ub.tum.de/node?id=1304877):
-  *Smart Data Infrastructure for Smart and Sustainable Cities*,
-  DDSS 2016,
-  [PDF download / DOI](https://mediatum.ub.tum.de/doc/1304877/797209.pdf).
-
-### Cite this repository
-
-To cite this repository, please use the DOI provided by [Zenodo](https://zenodo.org).
-If you want to reference a specific release version of the software, click the badge
-and navigate to the desired version on the page.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7784078.svg?style=flat-square)](https://doi.org/10.5281/zenodo.7784078)
-
-## :handshake: Thanks
-
-We would like to thank following institutions and persons for their contributions
-to the SDDI concepts, tools, documentations, education, and funding:
-
-- [ZD.B-Themenplattform Smart Cities and Regions](https://www.bayern-innovativ.de/de/netzwerke-und-thinknet/uebersicht-digitalisierung/digitales-planen-und-bauen-smart-cities-and-regions/seite/zd-b-themenplattform-smart-cities-and-regions):
-  Willi Steincke at [Bayern Innovativ GmbH](https://www.bayern-innovativ.de/de?gclid=Cj0KCQjwk7ugBhDIARIsAGuvgPZkLiU4AhX1Xz-07vLIt0vpixwjF1wCrHau3PkGEMyl2ZoU_pn1hPMaAnALEALw_wcB)
-  und [Lutz Morich](https://www.linkedin.com/in/lutz-morich-in), for funding and supporting the SDDI development for several years.
-
-- [Bayerisches Staatsministerium für Digitales](https://www.stmd.bayern.de/) for funding the
-  [project TwinBy](https://twinby.bayern) and Stefan Bobinger for many contributions to SDDI concepts and documentation.
-
-- [Digital Twin Munich / Digitaler Zwilling München](https://muenchen.digital/twin/),
-  [Connected Urban Twins (CUT) research project](https://www.connectedurbantwins.de/en/),
-  [SAVeNoW research project](https://savenow.de/en/),
-  [eit Climate-KIC](https://www.climate-kic.org/) (SDDI research project)
-  for funding the work on SDDI concepts and implementation.
-
-- [Tome Petrovski](https://github.com/TomeCirun) :raised_hands: for professional support
-  with CKAN and CKAN extension development.
-
-- [KEITARO](https://www.keitaro.com/) for their [CKAN Docker images](https://github.com/keitaroinc/docker-ckan)
-  and [CKAN Helm chart](https://github.com/keitaroinc/ckan-helm) that inspired this work.
-
-<p align="center" height="100" line-height="100">
-  <a href="https://twinby.bayern" target="_blank">
-    <img src="https://github.com/tum-gis/ckan-docker/blob/main/docs/img/twinBy_logo_h50.png"
-    alt="TwinBy" height="50"/>
-  </a>
-  <br />
-  <br />
-  <a href="https://www.stmd.bayern.de" target="_blank">
-    <img src="https://github.com/tum-gis/ckan-docker/blob/main/docs/img/bsd_logo_h50.png"
-    alt="Bayerische Staatsministerium für Digitales" height="50" />
-  </a>
-  <br />
-  <br />
-  <a href="https://www.bayern-innovativ.de" target="_blank">
-    <img src="https://github.com/tum-gis/ckan-docker/blob/main/docs/img/bayernInnovativ_logo_h50.png"
-    alt="Bayern Innovativ GmbH" height="50"/>
-  </a>
-</p>
-
-## :memo: License
-
-This Helm chart is distributed under the Apache License 2.0. See [LICENSE](LICENSE) for more information.
