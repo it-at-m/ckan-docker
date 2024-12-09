@@ -250,6 +250,19 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
+# ckanext-clamav ##############################################################
+ARG CKANEXT_CALMAV_VERSION="c483b5d"
+ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
+ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels -r \
+    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+  curl -o /wheels/ckanext-clamav.txt \
+    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
+    
 ###############################################################################
 # Runtime stage
 ###############################################################################
@@ -259,7 +272,7 @@ ENV CKAN__PLUGINS "image_view text_view recline_view recline_map_view recline_gr
   webpage_view openapi_view datastore xloader ogdmunich pages showcase resource_proxy geo_view geojson_view wmts_view shp_view \
   harvest ckan_harvester csw_harvester dcat dcatde \
   dcat_rdf_harvester dcat_json_harvester dcat_json_interface structured_data \
-  spatial_metadata spatial_query scheming_datasets keycloak noanonaccess envvars"
+  spatial_metadata spatial_query scheming_datasets keycloak noanonaccess clamav envvars"
 
 # Extra env for compatibility with ckan/base Docker images for downstream k8s
 ENV CKAN_INI=${APP_DIR}/production.ini
@@ -384,6 +397,13 @@ RUN set -ex && \
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-noanonaccess
 
+# ckanext-clamav ##############################################################
+# uninstall previous version from sddi-base
+RUN yes | pip uninstall ckanext-clamav
+RUN set -ex && \
+  pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
+
 # install supervisor ########################################################
 RUN set -ex && \
   apt-get update && \
@@ -431,5 +451,8 @@ RUN set -ex && \
   chown -R ckan:ckan ${APP_DIR} ${CKAN_STORAGE_PATH} && \
   # Remove wheels
   rm -rf ${APP_DIR}/ext_wheels
+# Set timezone
+ENV TZ="Europe/Berlin"
+RUN echo "${TZ}" > /etc/timezone
 
 USER ckan
