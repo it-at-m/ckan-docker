@@ -257,6 +257,11 @@ COPY supervisor/supervisor-ckan-worker.conf /etc/supervisor/conf.d
 COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
+# install ssh #############################################################
+RUN set -ex && \
+  apt-get update && \
+  apt-get -y install openssh-client
+
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
   ckan config-tool "${CKAN_INI}" "ckanext.geoview.ol_viewer.formats = wms kml" && \
