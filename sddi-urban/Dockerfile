@@ -272,3 +272,6 @@ ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
 USER ckan
+
+# change uwsgi conf files
+COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
