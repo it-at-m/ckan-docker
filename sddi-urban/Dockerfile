@@ -272,7 +272,7 @@ ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
 # Add debug capabilities
-ADD https://raw.githubusercontent.com/ckan/ckan/ckan-${CKAN_VERSION}/dev-requirements.txt /dev-requirements.txt
+ADD https://raw.githubusercontent.com/ckan/ckan/ckan-2.9.9/dev-requirements.txt /dev-requirements.txt
 RUN set -ex && \
   pip install -r /dev-requirements.txt && \
   rm /dev-requirements.txt
