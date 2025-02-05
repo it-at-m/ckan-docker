@@ -271,6 +271,12 @@ RUN set -ex && \
 ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
+# Add debug capabilities
+ADD https://raw.githubusercontent.com/ckan/ckan/ckan-${CKAN_VERSION}/dev-requirements.txt /dev-requirements.txt
+RUN set -ex && \
+  pip install -r /dev-requirements.txt && \
+  rm /dev-requirements.txt
+
 USER ckan
 
 # change uwsgi conf files
