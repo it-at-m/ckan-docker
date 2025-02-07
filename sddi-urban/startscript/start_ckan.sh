@@ -64,15 +64,15 @@ then
       # Generate htpasswd file for basicauth
       htpasswd -d -b -c /srv/app/.htpasswd $HTPASSWD_USER $HTPASSWD_PASSWORD
       # Start uwsgi with basicauth
-      uwsgi --ini /srv/app/basic-auth-uwsgi.conf -p ${UWSGI_PROC_NO:-2} --pcre-jit 
+      uwsgi --ini /srv/app/basic-auth-uwsgi.conf -p $UWSGI_PROCESSES --threads $UWSGI_THREADS --pcre-jit 
     else
       echo "Missing HTPASSWD_USER or HTPASSWD_PASSWORD environment variables. Exiting..."
       exit 1
     fi
   else
     # Start uwsgi
-    echo "Starting UWSGI with as much workers as defined in uwsgi.conf"
-    uwsgi --ini /srv/app/uwsgi.conf
+    echo "Starting UWSGI with $UWSGI_PROCESSES workers, each with $UWSGI_THREADS possible threads."
+    uwsgi --ini /srv/app/uwsgi.conf -p $UWSGI_PROCESSES --threads $UWSGI_THREADS
   fi
 else
   echo "[prerun] failed...not starting CKAN."

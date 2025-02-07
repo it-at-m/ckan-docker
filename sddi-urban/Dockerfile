@@ -280,7 +280,7 @@ RUN set -ex && \
 USER ckan
 
 # change uwsgi conf files
-COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
+#COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
 
 # change server.py
 #COPY debug/server.py /srv/app/src/ckan/ckan/cli/server.py
