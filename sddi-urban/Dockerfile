@@ -283,4 +283,7 @@ USER ckan
 COPY uwsgi/uwsgi.conf /srv/app/uwsgi.conf
 
 # change server.py
-COPY debug/server.py /srv/app/src/ckan/ckan/cli/server.py
+#COPY debug/server.py /srv/app/src/ckan/ckan/cli/server.py
+
+# change ckan startscript
+COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
