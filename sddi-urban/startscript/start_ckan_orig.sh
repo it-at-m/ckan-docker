@@ -68,8 +68,8 @@ then
     fi
   else
     # Start uwsgi
-    echo "Starting UWSGI with the number of workers set in uwsgi config file."
-    uwsgi --ini /srv/app/uwsgi.conf
+    echo "Starting UWSGI with '${UWSGI_PROC_NO:-2}' workers"
+    uwsgi --ini /srv/app/uwsgi.conf -p ${UWSGI_PROC_NO:-2}
   fi
 else
   echo "[prerun] failed...not starting CKAN."
