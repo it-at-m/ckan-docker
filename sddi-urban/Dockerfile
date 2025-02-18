@@ -275,7 +275,8 @@ RUN echo "${TZ}" > /etc/timezone
 ADD https://raw.githubusercontent.com/ckan/ckan/ckan-2.9.9/dev-requirements.txt /dev-requirements.txt
 RUN set -ex && \
   pip install -r /dev-requirements.txt && \
-  rm /dev-requirements.txt
+  rm /dev-requirements.txt && \
+  pip install 'ckanext-fdt-sqlalchemy[deps]'
 
 USER ckan
 
