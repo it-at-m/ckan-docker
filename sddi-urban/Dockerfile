@@ -285,3 +285,6 @@ USER ckan
 
 # change ckan startscript
 COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
+
+# TMP: Copy changed add_dataset buttons
+COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.html
