@@ -73,7 +73,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="689eef6"
+ARG CKANEXT_LHM_VERSION="dfb12bd"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -289,5 +289,5 @@ COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
 # TMP: Copy changed add_dataset buttons
 COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.html
 
-# TMP: Change resourcedictionary to required
+# TMP: Change resourcedictionary fields to required
 COPY tmp/create.py /usr/local/lib/python3.8/dist-packages/ckanext/resourcedictionary/logic/action/create.py
