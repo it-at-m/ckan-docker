@@ -73,7 +73,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="ff3bb14"
+ARG CKANEXT_LHM_VERSION="a2f8d6b"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -168,7 +168,8 @@ RUN set -ex && \
 # #############################################################################
 # # Runtime stage
 # #############################################################################
-FROM ${BASEIMAGE_REPOSITORY}:${BASEIMAGE_VERSION} as runtime
+#FROM ${BASEIMAGE_REPOSITORY}:${BASEIMAGE_VERSION} as runtime
+FROM ghcr.io/tum-gis/ckan-sddi-base@sha256:37242349d2dd7c3ab4b5fcc28192ebcade18ac3f63bc270a202d3bb702255000 as runtime
 
 USER root
 
