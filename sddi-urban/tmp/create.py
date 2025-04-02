@@ -86,9 +86,6 @@ def resource_dictionary_create(context, data_dict):
     # Make extra subfields required
     for f in new_fields:
         new_subfields = f[u'info']
-        print(new_subfields)
-        if u'notes' not in new_subfields or not new_subfields[u'notes']:
-            raise ValidationError({u'fields': [{u'notes': _(u'Missing value')}]})
         if u'opendata' not in new_subfields  or not new_subfields[u'opendata']:
             raise ValidationError({u'fields': [{u'opendata': _(u'Missing value')}]})
 
