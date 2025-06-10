@@ -148,9 +148,11 @@ RUN set -ex && \
   git+${CKANEXT_PAGES_GITHUB_URL}.git@${CKANEXT_PAGES_TAG}#egg=ckanext-pages
 
 # ckanext-dcat ################################################################
-ARG CKANEXT_DCAT_VERSION="v1.6.0"
+ARG CKANEXT_DCAT_VERSION="v2.3.0"
 ENV CKANEXT_DCAT_VERSION=${CKANEXT_DCAT_VERSION}
 ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
+
+RUN pip install --ignore-installed packaging==20.9
 
 RUN set -ex && \
   pip install -r \
@@ -161,7 +163,7 @@ RUN set -ex && \
     git+${CKANEXT_DCAT_GITHUB_URL}.git@${CKANEXT_DCAT_VERSION}#egg=ckanext-dcat
 
 # ckanext-dcatde ################################################################
-ARG CKANEXT_DCATDE_VERSION="6.7.0"
+ARG CKANEXT_DCATDE_VERSION="6.9.0"
 ENV CKANEXT_DCATDE_VERSION=${CKANEXT_DCATDE_VERSION}
 ENV CKANEXT_DCATDE_GITHUB_URL="https://github.com/GovDataOfficial/ckanext-dcatde"
 
@@ -427,7 +429,7 @@ RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckanext.pages.about_menu = false" && \
   ckan config-tool "${CKAN_INI}" "ckanext.pages.allow_html = true" && \
   ckan config-tool "${CKAN_INI}" "ckanext.pages.editor = ckeditor" && \
-  ckan config-tool "${CKAN_INI}" "ckanext.dcat.rdf.profiles = euro_dcat_ap_2 dcatap_de" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.dcat.rdf.profiles = dcatap_de" && \
   ckan config-tool "${CKAN_INI}" "ckan.harvest.mq.type = redis" && \
   ckan config-tool "${CKAN_INI}" "ckan.harvest.mq.hostname = 127.0.0.1" && \
   ckan config-tool "${CKAN_INI}" "ckan.harvest.mq.port=6379" && \
