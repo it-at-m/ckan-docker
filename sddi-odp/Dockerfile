@@ -154,12 +154,16 @@ ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
-  && pip install --upgrade --ignore-installed "packaging==23.0" \
+  && pip install --upgrade --ignore-installed "packaging>=23.0" \
+  && mkdir -p /wheels \
   && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/requirements.txt \
   && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
        git+${CKANEXT_DCAT_GITHUB_URL}.git@${CKANEXT_DCAT_VERSION}#egg=ckanext-dcat
 
 # ckanext-dcatde ################################################################
@@ -169,13 +173,17 @@ ENV CKANEXT_DCATDE_GITHUB_URL="https://github.com/GovDataOfficial/ckanext-dcatde
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
-  && pip install --upgrade --ignore-installed "packaging==23.0" \
+  && pip install --upgrade --ignore-installed "packaging>=23.0" \
+  && mkdir -p /wheels \
   && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
-  && pip wheel --no-deps --wheel-dir=/wheels \
-       git+https://github.com/GovDataOfficial/ckanext-dcatde.git@${CKANEXT_DCATDE_VERSION}#egg=ckanext-dcatde
+  && pip wheel --wheel-dir=/wheels \
+       --extra-index-url=https://pypi.org/simple \
+       git+${CKANEXT_DCATDE_GITHUB_URL}.git@${CKANEXT_DCATDE_VERSION}#egg=ckanext-dcatde
 
 # ckanext-xloader ##########################################################
 ARG CKANEXT_XLOADER_VERSION="1.0.1"
