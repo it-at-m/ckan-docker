@@ -362,12 +362,10 @@ RUN set -ex && \
 
 # ckanext-dcat ################################################################
 RUN set -ex && \
-  pip install -r ${APP_DIR}/ext_wheels/ckanext-dcat.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcat
 
 # ckanext-dcatde ################################################################
 RUN set -ex && \
-  pip install -r ${APP_DIR}/ext_wheels/ckanext-dcatde.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcatde
 
 # ckanext-xloader #############################################################
