@@ -162,6 +162,8 @@ RUN set -ex \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/requirements.txt \
+  && curl -o /wheels/ckanext-dcat.txt \
+       https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/requirements.txt \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        git+${CKANEXT_DCAT_GITHUB_URL}.git@${CKANEXT_DCAT_VERSION}#egg=ckanext-dcat
@@ -181,6 +183,8 @@ RUN set -ex \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
+  && curl -o /wheels/ckanext-dcatde.txt \
+       https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        git+${CKANEXT_DCATDE_GITHUB_URL}.git@${CKANEXT_DCATDE_VERSION}#egg=ckanext-dcatde
@@ -370,12 +374,12 @@ RUN set -ex && \
 
 # ckanext-dcat ################################################################
 RUN set -ex && \
-  pip install frozendict && \
+  pip install -r ${APP_DIR}/ext_wheels/ckanext-dcat.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcat
 
 # ckanext-dcatde ################################################################
 RUN set -ex && \
-  pip install frozendict && \
+  pip install -r ${APP_DIR}/ext_wheels/ckanext-dcatde.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcatde
 
 # ckanext-xloader #############################################################
