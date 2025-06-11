@@ -156,7 +156,6 @@ RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
   && pip install --upgrade --ignore-installed "packaging>=23.0" \
   && mkdir -p /wheels \
-  && pip wheel --wheel-dir=/wheels frozendict \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
@@ -176,7 +175,6 @@ RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
   && pip install --upgrade --ignore-installed "packaging>=23.0" \
   && mkdir -p /wheels \
-  && pip wheel --wheel-dir=/wheels frozendict \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
@@ -371,15 +369,13 @@ RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-pages
 
 # ckanext-dcat ################################################################
-RUN ls -lh ${APP_DIR}/ext_wheels
-RUN ls -lh /wheels
 RUN set -ex && \
-  pip install --no-index --find-links=${APP_DIR}/ext_wheels frozendict && \
+  pip install frozendict && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcat
 
 # ckanext-dcatde ################################################################
 RUN set -ex && \
-  pip install --no-index --find-links=${APP_DIR}/ext_wheels frozendict && \
+  pip install frozendict && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcatde
 
 # ckanext-xloader #############################################################
