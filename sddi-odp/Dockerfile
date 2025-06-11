@@ -152,7 +152,8 @@ ARG CKANEXT_DCAT_VERSION="v2.3.0"
 ENV CKANEXT_DCAT_VERSION=${CKANEXT_DCAT_VERSION}
 ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
-RUN pip install --ignore-installed packaging==20.9
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install --upgrade --ignore-installed packaging
 
 RUN set -ex && \
   pip install -r \
