@@ -169,7 +169,7 @@ ENV CKANEXT_DCATDE_GITHUB_URL="https://github.com/GovDataOfficial/ckanext-dcatde
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
-  && pip install --upgrade --ignore-installed "packaging==21.3" \
+  && pip install --upgrade --ignore-installed "packaging==23.0" \
   && pip wheel --wheel-dir=/wheels \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
