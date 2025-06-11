@@ -154,7 +154,7 @@ ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
 RUN set -ex \
   && apk update \
-  && apk del python3-packaging \
+  && apk del py3-packaging \
   && pip install --upgrade pip setuptools wheel \
   && pip install packaging \
   && pip install -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
