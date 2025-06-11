@@ -152,15 +152,15 @@ ARG CKANEXT_DCAT_VERSION="v2.3.0"
 ENV CKANEXT_DCAT_VERSION=${CKANEXT_DCAT_VERSION}
 ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
-RUN set -ex \
-  && pip install --upgrade pip setuptools wheel \
-  && pip install --upgrade --ignore-installed packaging \
-  && pip install -r \
-     https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
-  && curl -o /wheels/ckanext-dcat.txt \
-     https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/requirements.txt \
-  && pip wheel --wheel-dir=/wheels \
-     git+${CKANEXT_DCAT_GITHUB_URL}.git@${CKANEXT_DCAT_VERSION}#egg=ckanext-dcat
+RUN apt-get update \
+ && apt-get remove -y python3-packaging \
+ && pip install --upgrade pip setuptools wheel \
+ && pip install -r \
+      https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
+ && curl -o /wheels/ckanext-dcat.txt \
+      https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/requirements.txt \
+ && pip wheel --wheel-dir=/wheels \
+      git+${CKANEXT_DCAT_GITHUB_URL}.git@${CKANEXT_DCAT_VERSION}#egg=ckanext-dcat
 
 # ckanext-dcatde ################################################################
 ARG CKANEXT_DCATDE_VERSION="6.9.0"
