@@ -174,7 +174,7 @@ RUN set -ex \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
        -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
-  && pip wheel --no-deps --no-build-isolation --wheel-dir=/wheels \
+  && pip wheel --no-deps --wheel-dir=/wheels \
        git+https://github.com/GovDataOfficial/ckanext-dcatde.git@${CKANEXT_DCATDE_VERSION}#egg=ckanext-dcatde
 
 # ckanext-xloader ##########################################################
