@@ -154,6 +154,7 @@ ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel packaging \
+  && pip install --upgrade --ignore-installed "packaging==23.0" \
   && mkdir -p /wheels \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
@@ -166,6 +167,7 @@ ENV CKANEXT_DCATDE_GITHUB_URL="https://github.com/GovDataOfficial/ckanext-dcatde
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel packaging \
+  && pip install --upgrade --ignore-installed "packaging==23.0" \
   && mkdir -p /wheels \
   && pip wheel --wheel-dir=/wheels \
        --extra-index-url=https://pypi.org/simple \
