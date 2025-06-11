@@ -371,6 +371,8 @@ RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-pages
 
 # ckanext-dcat ################################################################
+RUN ls -lh ${APP_DIR}/ext_wheels
+RUN ls -lh /wheels
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels frozendict && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-dcat
