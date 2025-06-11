@@ -154,6 +154,7 @@ ENV CKANEXT_DCAT_GITHUB_URL="https://github.com/ckan/ckanext-dcat"
 
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
+  && pip install --upgrade --ignore-installed "packaging==21.3" \
   && pip wheel --wheel-dir=/wheels \
        -r https://raw.githubusercontent.com/ckan/ckanext-dcat/${CKANEXT_DCAT_VERSION}/dev-requirements.txt \
   && pip wheel --wheel-dir=/wheels \
