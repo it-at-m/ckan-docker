@@ -170,10 +170,11 @@ ENV CKANEXT_DCATDE_GITHUB_URL="https://github.com/GovDataOfficial/ckanext-dcatde
 RUN set -ex \
   && pip install --upgrade pip setuptools wheel \
   && pip install --upgrade --ignore-installed "packaging==21.3" \
-  && pip install -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
-  && curl -o /wheels/ckanext-dcatde.txt \
-       https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
-  && pip wheel --no-deps --wheel-dir=/wheels \
+  && pip wheel --wheel-dir=/wheels \
+       -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/dev-requirements.txt \
+  && pip wheel --wheel-dir=/wheels \
+       -r https://raw.githubusercontent.com/GovDataOfficial/ckanext-dcatde/${CKANEXT_DCATDE_VERSION}/base-requirements.txt \
+  && pip wheel --no-deps --no-build-isolation --wheel-dir=/wheels \
        git+https://github.com/GovDataOfficial/ckanext-dcatde.git@${CKANEXT_DCATDE_VERSION}#egg=ckanext-dcatde
 
 # ckanext-xloader ##########################################################
