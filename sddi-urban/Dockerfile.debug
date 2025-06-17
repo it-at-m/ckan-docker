@@ -13,7 +13,7 @@ RUN set -ex && \
   pip install -r /dev-requirements.txt && \
   rm /dev-requirements.txt
 
-RUN set -ex && \
-  ckan config-tool "${CKAN_INI}" "debug = True"
+#RUN set -ex && \
+#  ckan config-tool "${CKAN_INI}" "debug = True"
 
 USER ckan
