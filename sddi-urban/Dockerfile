@@ -279,6 +279,9 @@ RUN set -ex && \
   rm /dev-requirements.txt && \
   pip install 'ckanext-fdt-sqlalchemy[deps]'
 
+# Install tcpdump
+RUN apt install tcpdump
+
 USER ckan
 
 # change server.py
@@ -292,3 +295,5 @@ COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.
 
 # TMP: Change resourcedictionary fields to required
 COPY tmp/create.py /usr/local/lib/python3.8/dist-packages/ckanext/resourcedictionary/logic/action/create.py
+
+
