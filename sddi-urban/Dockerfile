@@ -280,7 +280,7 @@ RUN set -ex && \
   pip install 'ckanext-fdt-sqlalchemy[deps]'
 
 # Install tcpdump
-RUN apt install tcpdump
+RUN yes | apt install tcpdump
 
 USER ckan
 
