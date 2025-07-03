@@ -296,4 +296,6 @@ COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.
 # TMP: Change resourcedictionary fields to required
 COPY tmp/create.py /usr/local/lib/python3.8/dist-packages/ckanext/resourcedictionary/logic/action/create.py
 
+# TMP MB_DEBUG 504
+COPY debug/flask_app_debug.py /srv/app/src/ckan/ckan/config/middleware/flask_app.py
 
