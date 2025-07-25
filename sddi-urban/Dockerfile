@@ -300,6 +300,6 @@ COPY tmp/create.py /usr/local/lib/python3.8/dist-packages/ckanext/resourcedictio
 
 # download button, user ckan
 RUN mkdir /srv/app/data/md_download
-COPY download_button/harvesting/template_v1.2.2.xlsx /srv/app/data/md_download/template_v1.2.2.xlsx
-COPY download_button/harvesting/config-download.json /srv/app/data/md_download/config-download.json
+COPY tmp/template_v1.2.2.xlsx /srv/app/data/md_download/template_v1.2.2.xlsx
+COPY tmp/config-download.json /srv/app/data/md_download/config-download.json
 

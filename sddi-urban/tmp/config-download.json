@@ -1,0 +1,7 @@
+{
+    "api_key": "",
+    "api_key_harvester": "",
+    "base_url": "http://localhost:5000",
+    "wdir": "/srv/app/data/md_download",
+    "template": "/srv/app/data/md_download/template_v1.2.2.xlsx"
+}
