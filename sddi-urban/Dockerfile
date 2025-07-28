@@ -73,7 +73,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="c64eace"
+ARG CKANEXT_LHM_VERSION="781167b"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -299,7 +299,7 @@ COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.
 COPY tmp/create.py /usr/local/lib/python3.8/dist-packages/ckanext/resourcedictionary/logic/action/create.py
 
 # download button, user ckan
-RUN mkdir /srv/app/data/md_download
-COPY tmp/template_v1.2.2.xlsx /srv/app/data/md_download/template_v1.2.2.xlsx
-COPY tmp/config-download.json /srv/app/data/md_download/config-download.json
+RUN mkdir /srv/app/md_download
+COPY tmp/template_v1.2.2.xlsx /srv/app/md_download/template_v1.2.2.xlsx
+COPY tmp/config-download.json /srv/app/md_download/config-download.json
 
