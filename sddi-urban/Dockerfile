@@ -9,6 +9,22 @@ FROM ckan/ckan-base:${CKAN_VERSION_BUILD_STAGE} as extbuild
 
 USER root
 
+RUN apt-get update && apt-get install -y \
+    curl \
+    libpq-dev \
+    autoconf \
+    automake \
+    libtool \
+    patch \
+    musl-dev \
+    libpcre3-dev \
+    libpcre3 \
+    libffi-dev \
+    libxml2-dev \
+    libxslt-dev
+
+RUN pip install -U markupsafe==2.0.1 sqlalchemy==1.4.41
+
 ## ckanext-resourcedictionary ##########################################################
 #ARG CKANEXT_RESOURCEDICTIONARY_VERSION="v1.0.0"
 #ENV CKANEXT_RESOURCEDICTIONARY_VERSION=${CKANEXT_RESOURCEDICTIONARY_VERSION}
