@@ -273,6 +273,10 @@ RUN echo "${TZ}" > /etc/timezone
 #RUN pip install pandas
 #RUN yes | apt install libreoffice
 
+# Change permissions recursively for all files in the local folders
+RUN chmod -R 777 /srv/app/.local
+RUN chmod -R 777 /usr/local
+
 USER ckan
 
 # change server.py
