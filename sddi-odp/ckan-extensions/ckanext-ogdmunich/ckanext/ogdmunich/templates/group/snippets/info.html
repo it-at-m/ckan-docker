@@ -18,10 +18,7 @@
       <div class="nums">
         <dl>
           <dt>{{ _('Datasets') }}</dt>
-          {# robust: Anzahl aus Solr holen, keine Treffer laden #}
-          {% set fq = 'groups:"%s" AND state:active' % group.name %}
-          {% set res = h.package_search(q='', fq=fq, rows=0) %}
-          <dd>{{ h.SI_number_span(res['count']) }}</dd>
+          <dd>{{ h.SI_number_span(group.packages|length) }}</dd>
         </dl>
       </div>
     {% endif %}
