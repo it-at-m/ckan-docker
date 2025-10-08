@@ -17,11 +17,8 @@
     {% if show_nums %}
       <div class="nums">
         <dl>
-          {# Count via Solr/CKAN action, no results loaded #}
-          {% set fq = 'groups:"%s" AND dataset_type:dataset AND state:active' % group.name %}
-          {% set package_search = h.get_action('package_search') %}
-          {% set res = package_search({}, {'q': '', 'fq': fq, 'rows': 0}) or {'count': 0} %}
-          <dd>{{ h.SI_number_span(res.get('count', 0)) }}</dd>
+            <dt>{{ _('Datasets') }}</dt>
+            <dd>{{ h.SI_number_span(group.package_count) }}</dd>
         </dl>
       </div>
     {% endif %}
