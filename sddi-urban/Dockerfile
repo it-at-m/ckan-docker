@@ -74,7 +74,6 @@ RUN set -ex && \
 
 # ckanext-lhm ##########################################################
 ARG CKANEXT_LHM_VERSION="9dc2ece"
-"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
