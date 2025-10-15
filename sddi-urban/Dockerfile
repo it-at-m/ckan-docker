@@ -73,7 +73,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="9dc2ece"
+ARG CKANEXT_LHM_VERSION="a305dff"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -121,7 +121,7 @@ RUN set -ex && \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
 # ckanext-iso ##########################################################
-ARG CKANEXT_ISO_VERSION="c4c28a8"
+ARG CKANEXT_ISO_VERSION="53a28ad"
 ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
 ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
 
