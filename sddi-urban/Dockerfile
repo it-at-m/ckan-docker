@@ -259,6 +259,10 @@ COPY supervisor/ckan_harvesting.conf /etc/supervisor/conf.d
 COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
+# Copy and enable ckan cronjobs
+COPY cron/ckan-cronjobs /etc/cron.d/ckan-cronjobs
+RUN chmod 0644 /etc/cron.d/ckan-cronjobs
+
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
   ckan config-tool "${CKAN_INI}" "ckanext.geoview.ol_viewer.formats = wms kml" && \
