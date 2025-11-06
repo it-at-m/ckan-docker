@@ -166,7 +166,7 @@ RUN set -ex && \
 
 # ckanext-spatial #############################################################
 ENV CKANEXT_SPATIAL_GITHUB_URL="https://github.com/ckan/ckanext-spatial"
-ENV CKANEXT_SPATIAL_VERSION="v2.3.0"
+ENV CKANEXT_SPATIAL_VERSION="v2.1.1"
 
 RUN set -ex && \
   curl -o /wheels/ckanext-spatial-requirements.txt \
