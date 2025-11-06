@@ -164,6 +164,15 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
 
+# pycsw #######################################################################
+ARG PYCSW_VERSION="2.6.2"
+ENV PYCSW_VERSION=${PYCSW_VERSION}
+ENV PYCSW_GITHUB_URL="https://github.com/geopython/pycsw"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${PYCSW_GITHUB_URL}.git@${PYCSW_VERSION}#egg=pycsw
+
 
 # #############################################################################
 # # Runtime stage
@@ -250,6 +259,11 @@ RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
 
+# pycsw #############################################################
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels pycsw
+
+
 # install supervisor ########################################################
 RUN set -ex && \
   apt-get update && \
@@ -262,6 +276,7 @@ COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 # Copy and enable ckan cronjobs
 COPY cron/ckan-cronjobs /etc/cron.d/ckan-cronjobs
 RUN chmod 0644 /etc/cron.d/ckan-cronjobs
+RUN crontab /etc/cron.d/ckan-cronjobs
 
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
