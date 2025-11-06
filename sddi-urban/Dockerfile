@@ -165,13 +165,13 @@ RUN set -ex && \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
 
 # pycsw #######################################################################
-ARG PYCSW_VERSION="2.6.2"
-ENV PYCSW_VERSION=${PYCSW_VERSION}
-ENV PYCSW_GITHUB_URL="https://github.com/geopython/pycsw"
-
-RUN set -ex && \
-  pip wheel --wheel-dir=/wheels \
-    git+${PYCSW_GITHUB_URL}.git@${PYCSW_VERSION}#egg=pycsw
+#ARG PYCSW_VERSION="2.6.2"
+#ENV PYCSW_VERSION=${PYCSW_VERSION}
+#ENV PYCSW_GITHUB_URL="https://github.com/geopython/pycsw"
+#
+#RUN set -ex && \
+#  pip wheel --wheel-dir=/wheels \
+#    git+${PYCSW_GITHUB_URL}.git@${PYCSW_VERSION}#egg=pycsw
 
 
 # #############################################################################
@@ -259,10 +259,14 @@ RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
 
-# pycsw #############################################################
+# install pycsw #############################################################
 RUN set -ex && \
-  pip install --no-index --find-links=${APP_DIR}/ext_wheels pycsw
-
+  git clone https://github.com/geopython/pycsw.git && \
+  cd pycsw && \
+  git checkout 2.6.2 && \
+  pip install -e . && \
+  python setup.py build && \
+  python setup.py install
 
 # install supervisor ########################################################
 RUN set -ex && \
