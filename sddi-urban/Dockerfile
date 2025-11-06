@@ -164,25 +164,6 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
 
-# ckanext-spatial #############################################################
-ENV CKANEXT_SPATIAL_GITHUB_URL="https://github.com/ckan/ckanext-spatial"
-ENV CKANEXT_SPATIAL_VERSION="v2.1.1"
-
-RUN set -ex && \
-  curl -o /wheels/ckanext-spatial-requirements.txt \
-    https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements.txt && \
-  pip wheel --wheel-dir=/wheels \
-    git+${CKANEXT_SPATIAL_GITHUB_URL}.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial
-
-# pycsw #######################################################################
-#ARG PYCSW_VERSION="2.6.2"
-#ENV PYCSW_VERSION=${PYCSW_VERSION}
-#ENV PYCSW_GITHUB_URL="https://github.com/geopython/pycsw"
-#
-#RUN set -ex && \
-#  pip wheel --wheel-dir=/wheels \
-#    git+${PYCSW_GITHUB_URL}.git@${PYCSW_VERSION}#egg=pycsw
-
 
 # #############################################################################
 # # Runtime stage
@@ -269,18 +250,11 @@ RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
 
-# ckanext-spatial #############################################################
-RUN yes | pip uninstall ckanext-spatial
-RUN set -ex && \
-  pip install -e 'git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial' && \
-  #pip install -r 'https://raw.githubusercontent.com/ckan/ckanext-spatial/master/requirements.txt'
-  pip install -r ${APP_DIR}/ext_wheels/ckanext-spatial-requirements.txt
-
 # install pycsw #############################################################
 RUN set -ex && \
   git clone https://github.com/geopython/pycsw.git && \
   cd pycsw && \
-  git checkout 2.6.2 && \
+  git checkout 2.6.1 && \
   pip install -e . && \
   python setup.py build && \
   python setup.py install
