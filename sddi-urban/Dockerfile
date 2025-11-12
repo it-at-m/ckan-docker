@@ -121,7 +121,7 @@ RUN set -ex && \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
 # ckanext-iso ##########################################################
-ARG CKANEXT_ISO_VERSION="53a28ad"
+ARG CKANEXT_ISO_VERSION="d007d39"
 ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
 ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
 
@@ -249,15 +249,6 @@ RUN yes | pip uninstall ckanext-clamav
 RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
-
-# install pycsw #############################################################
-RUN set -ex && \
-  git clone https://github.com/geopython/pycsw.git && \
-  cd pycsw && \
-  git checkout 2.6.1 && \
-  pip install -e . && \
-  python setup.py build && \
-  python setup.py install
 
 # install supervisor ########################################################
 RUN set -ex && \
