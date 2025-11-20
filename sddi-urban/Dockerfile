@@ -309,3 +309,6 @@ RUN mkdir /srv/app/md_download
 COPY tmp/template_v1.2.2.xlsx /srv/app/md_download/template_v1.2.2.xlsx
 COPY tmp/config-download.json /srv/app/md_download/config-download.json
 
+# Change reclineview datatables rows limit from 1000 to 2000
+COPY tmp/recline.js /srv/app/src/ckan/ckanext/reclineview/theme/public/vendor/recline/recline.js
+COPY tmp/ckan.js /srv/app/src/ckan/ckanext/reclineview/theme/public/vendor/ckan.js/ckan.js
