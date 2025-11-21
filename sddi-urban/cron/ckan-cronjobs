@@ -1,1 +1,2 @@
-*/10 * * * * ckan /srv/app/ckan harvester run
+*/10 * * * * ckan ckan harvester run
+*/10 * * * * ckan echo MB_Debug test cronjob
