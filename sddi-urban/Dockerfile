@@ -142,14 +142,14 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_KEYCLOAK_GITHUB_URL}.git@${CKANEXT_KEYCLOAK_VERSION}#egg=ckanext-keycloak
 
-# ckanext-noanonaccess ##########################################################
-ARG CKANEXT_NOANONACCESS_VERSION="290ca76"
-ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
-ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-noanonaccess"
+  # ckanext-noanonaccess ##########################################################
+  ARG CKANEXT_NOANONACCESS_VERSION="290ca76"
+  ENV CKANEXT_NOANONACCESS_VERSION=${CKANEXT_NOANONACCESS_VERSION}
+  ENV CKANEXT_NOANONACCESS_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-noanonaccess"
 
-RUN set -ex && \
-  pip wheel --wheel-dir=/wheels \
-    git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
+  RUN set -ex && \
+    pip wheel --wheel-dir=/wheels \
+      git+${CKANEXT_NOANONACCESS_GITHUB_URL}.git@${CKANEXT_NOANONACCESS_VERSION}#egg=ckanext-noanonaccess
 
 # ckanext-clamav ##############################################################
 ARG CKANEXT_CALMAV_VERSION="c483b5d"
@@ -163,6 +163,15 @@ RUN set -ex && \
     https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
+
+# ckanext-jsonschema ##########################################################
+ARG CKANEXT_JSONSCHEMA_VERSION="b739c79"
+ENV CKANEXT_JSONSCHEMA_VERSION=${CKANEXT_JSONSCHEMA_VERSION}
+ENV CKANEXT_JSONSCHEMA_GITHUB_URL="https://github.com/ccancellieri/ckanext-jsonschema"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_JSONSCHEMA_GITHUB_URL}.git@${CKANEXT_JSONSCHEMA_VERSION}#egg=ckanext-jsonschema
 
 
 # #############################################################################
@@ -249,6 +258,10 @@ RUN yes | pip uninstall ckanext-clamav
 RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-clamav.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-clamav
+
+# ckanext-njsonschema #############################################################
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-jsonschema
 
 # install supervisor ########################################################
 RUN set -ex && \
