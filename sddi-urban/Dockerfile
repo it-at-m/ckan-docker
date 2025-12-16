@@ -1,5 +1,5 @@
 # ###############################################################################
-# ### Build stage
+# # Build stage
 # ##############################################################################
 ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
 ARG BASEIMAGE_VERSION=2.1.2
@@ -73,7 +73,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="a6c5e03"
+ARG CKANEXT_LHM_VERSION="b24a18c"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -121,7 +121,7 @@ RUN set -ex && \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
 # ckanext-iso ##########################################################
-ARG CKANEXT_ISO_VERSION="6a93cb9"
+ARG CKANEXT_ISO_VERSION="5f14cad"
 ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
 ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
 
@@ -259,11 +259,6 @@ COPY supervisor/ckan_harvesting.conf /etc/supervisor/conf.d
 COPY supervisor/supervisord.conf /etc/supervisor
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
-# Copy and enable ckan cronjobs
-COPY cron/ckan-cronjobs /etc/cron.d/ckan-cronjobs
-RUN chmod 0644 /etc/cron.d/ckan-cronjobs
-RUN crontab /etc/cron.d/ckan-cronjobs
-
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
   ckan config-tool "${CKAN_INI}" "ckanext.geoview.ol_viewer.formats = wms kml" && \
@@ -291,9 +286,6 @@ RUN pip install pandas
 RUN yes | apt install libreoffice
 
 USER ckan
-
-# change server.py
-#COPY debug/server.py /srv/app/src/ckan/ckan/cli/server.py
 
 # change ckan startscript
 COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
