@@ -1,5 +1,5 @@
 # ###############################################################################
-# ## Build stage
+# # Build stage
 # ##############################################################################
 ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
 ARG BASEIMAGE_VERSION=2.1.2
@@ -121,7 +121,7 @@ RUN set -ex && \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
 # ckanext-iso ##########################################################
-ARG CKANEXT_ISO_VERSION="5f14cad"
+ARG CKANEXT_ISO_VERSION="dafedce"
 ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
 ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
 
