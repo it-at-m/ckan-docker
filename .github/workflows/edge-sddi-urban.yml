@@ -2,7 +2,7 @@ name: Build/push edge-2.9.9 image
 
 on:
   push:
-    branches: [sddi-urban-2.9.9]
+    branches: [poc_gp]
     paths:
       - sddi-urban/**
 
