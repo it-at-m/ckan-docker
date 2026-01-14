@@ -256,8 +256,6 @@ RUN set -ex && \
   rm -rf ${APP_DIR}/ext_wheels && \
   # Remove afterinit script
   rm -f ${APP_DIR}/docker-afterinit.d/01_create_groups.sh && \
-  # Remove init script
-  rm -f /docker-entrypoint.d/ckan_init_data.sh
 
 # Set timezone
 ENV TZ="Europe/Berlin"
