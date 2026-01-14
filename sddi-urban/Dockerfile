@@ -255,7 +255,7 @@ RUN set -ex && \
   # Remove wheels
   rm -rf ${APP_DIR}/ext_wheels && \
   # Remove afterinit script
-  rm -f ${APP_DIR}/docker-afterinit.d/01_create_groups.sh && \
+  rm -f ${APP_DIR}/docker-afterinit.d/01_create_groups.sh
 
 # Set timezone
 ENV TZ="Europe/Berlin"
