@@ -360,6 +360,9 @@ RUN pip install pandas
 RUN chmod -R 777 /srv/app/.local
 RUN chmod -R 777 /usr/local
 
+# Force Python to always include the base image's (sddi-base) .local directory
+RUN echo "/srv/app/.local/lib/python3.10/site-packages" > /usr/local/lib/python3.10/site-packages/base_image_paths.pth
+
 # Change user
 USER ckan
 
