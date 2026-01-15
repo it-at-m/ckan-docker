@@ -54,7 +54,7 @@ ENV CKANEXT_XLOADER_VERSION=${CKANEXT_XLOADER_VERSION}
 ENV CKANEXT_XLOADER_GITHUB_URL="https://github.com/ckan/ckanext-xloader"
 
 RUN set -ex && \
-  mkdir /wheels && \
+  #mkdir /wheels && \
   pip install -r \
     https://raw.githubusercontent.com/ckan/ckanext-xloader/${CKANEXT_XLOADER_VERSION}/requirements.txt && \
   curl -o /wheels/ckanext-xloader.txt \
