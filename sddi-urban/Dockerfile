@@ -356,6 +356,9 @@ RUN echo "${TZ}" > /etc/timezone
 RUN pip install pandas
 #RUN yes | apt install libreoffice
 
+# Install gevent, which i required by uWSGI
+RUN pip install --no-cache-dir "gevent==24.11.1" "greenlet>=3.1.1"
+
 # Change permissions recursively for all files in the local folders ? Needed?
 RUN chmod -R 777 /srv/app/.local
 RUN chmod -R 777 /usr/local
