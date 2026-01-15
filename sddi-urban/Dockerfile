@@ -64,7 +64,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="54460a1"
+ARG CKANEXT_LHM_VERSION="a6c5e03"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -404,5 +404,5 @@ CMD ["/srv/app/start_ckan.sh"]
 ###################################################
 
 # TMP remaining changes in ckanext-lhm for upgrade
-COPY theme_templates_2.11_groups_match /srv/app/.local/lib/python3.10/site-packages/ckanext/lhm/theme_templates_2.9.9
+#COPY theme_templates_2.11_groups_match /srv/app/.local/lib/python3.10/site-packages/ckanext/lhm/theme_templates_2.9.9
 
