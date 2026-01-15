@@ -17,19 +17,19 @@ if [[ -z $BEAKER_SESSION_SECRET || -v $BEAKER_SESSION_SECRET || -z $JWT_ENCODE_S
   echo "Not all environment variables are set. Generating sessions..."
 else
   echo "Setting session secrets from environment variables"
-  ckan config-tool $APP_DIR/production.ini "beaker.session.secret=$BEAKER_SESSION_SECRET"
-  ckan config-tool $APP_DIR/production.ini "api_token.jwt.encode.secret=$JWT_ENCODE_SECRET"
-  ckan config-tool $APP_DIR/production.ini "api_token.jwt.decode.secret=$JWT_DECODE_SECRET"
+  ckan config-tool $APP_DIR/ckan.ini "beaker.session.secret=$BEAKER_SESSION_SECRET"
+  ckan config-tool $APP_DIR/ckan.ini "api_token.jwt.encode.secret=$JWT_ENCODE_SECRET"
+  ckan config-tool $APP_DIR/ckan.ini "api_token.jwt.decode.secret=$JWT_DECODE_SECRET"
 fi
 
-if grep -E "beaker.session.secret ?= ?$" $APP_DIR/production.ini
+if grep -E "beaker.session.secret ?= ?$" $APP_DIR/ckan.ini
 then
     echo "Setting secrets in ini file"
-    ckan config-tool $APP_DIR/production.ini "beaker.session.secret=$(python3 -c 'import secrets; print(secrets.token_urlsafe())')"
-    ckan config-tool $APP_DIR/production.ini "WTF_CSRF_SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_urlsafe())')"
+    ckan config-tool $APP_DIR/ckan.ini "beaker.session.secret=$(python3 -c 'import secrets; print(secrets.token_urlsafe())')"
+    ckan config-tool $APP_DIR/ckan.ini "WTF_CSRF_SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_urlsafe())')"
     JWT_SECRET=$(python3 -c 'import secrets; print("string:" + secrets.token_urlsafe())')
-    ckan config-tool $APP_DIR/production.ini "api_token.jwt.encode.secret=$JWT_SECRET"
-    ckan config-tool $APP_DIR/production.ini "api_token.jwt.decode.secret=$JWT_SECRET"
+    ckan config-tool $APP_DIR/ckan.ini "api_token.jwt.encode.secret=$JWT_SECRET"
+    ckan config-tool $APP_DIR/ckan.ini "api_token.jwt.decode.secret=$JWT_SECRET"
 fi
 
 # Run the prerun script to init CKAN and create the default admin user

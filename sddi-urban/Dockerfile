@@ -210,7 +210,7 @@ RUN pip install -r /dev-requirements.txt \
 # optional: your SQLAlchemy panel helper
 RUN pip install 'ckanext-fdt-sqlalchemy[deps]'
 
-#USER ckan
+USER ckan
 
 WORKDIR ${CKAN_DIR}
 
@@ -329,7 +329,7 @@ RUN set -ex && \
   rm -f ${APP_DIR}/docker-afterinit.d/01_create_groups.sh
 
 # Change user
-#USER root
+USER root
 
 # install supervisor ########################################################
 RUN set -ex && \
