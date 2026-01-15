@@ -111,14 +111,14 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
-## ckanext-iso ##########################################################
-#ARG CKANEXT_ISO_VERSION="9511a3a"
-#ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
-#ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
-#
-#RUN set -ex && \
-#  pip wheel --wheel-dir=/wheels \
-#    git+${CKANEXT_ISO_GITHUB_URL}.git@${CKANEXT_ISO_VERSION}#egg=ckanext-iso
+# ckanext-iso ##########################################################
+ARG CKANEXT_ISO_VERSION="9511a3a"
+ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
+ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_ISO_GITHUB_URL}.git@${CKANEXT_ISO_VERSION}#egg=ckanext-iso
 
 # ckanext-keycloak ##########################################################
 ARG CKANEXT_KEYCLOAK_VERSION="5859aec"
