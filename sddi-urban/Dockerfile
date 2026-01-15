@@ -385,6 +385,9 @@ RUN mkdir /srv/app/md_download
 COPY tmp/template_v1.2.2.xlsx /srv/app/md_download/template_v1.2.2.xlsx
 COPY tmp/config-download.json /srv/app/md_download/config-download.json
 
+# TMP 211 adaptations
+COPY 211/read_base.html /usr/local/lib/python3.10/site-packages/ckanext/lhm/templates/package/read_base.html
+
 ## Not sure if thefollowing are needed: #############
 
 WORKDIR ${APP_DIR}
