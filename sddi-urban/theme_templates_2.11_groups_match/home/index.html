@@ -1,0 +1,34 @@
+{% ckan_extends %}
+
+{{ super() }}
+
+{% block primary_content %}
+<div role="main">
+  <div class="main hero-lhm">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          {% block promoted %}
+          {% snippet 'home/snippets/promoted.html' %}
+          {% endblock promoted %}
+        </div>
+        <div class="col-md-6">
+          {% block search %}
+          {% snippet 'home/snippets/search.html', search_facets=search_facets %}
+          {% endblock search %}
+        </div>
+      </div>
+    </div>
+    <div class="group">
+      <div class="container">
+        <div class="row row2">
+          <div class="col-md-12 col1">
+            {% block lower %}
+              {% snippet 'home/snippets/lower_group.html' %}
+            {% endblock lower %}
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+{% endblock primary_content %}

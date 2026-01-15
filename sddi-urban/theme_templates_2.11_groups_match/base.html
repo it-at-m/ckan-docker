@@ -1,0 +1,19 @@
+{% ckan_extends %}
+
+{% block meta %}
+  {{ super() }}
+  <meta name="robots" content="noindex" />
+{% endblock meta %}
+
+{%- block title -%}
+  {{ super() }}   
+{%- endblock -%}
+
+{% block links -%}
+  <link rel="shortcut icon" href="{{ g.favicon }}" />
+{% endblock -%}
+
+{% block styles %}
+  {{ super() }}
+  {% asset 'lhm_theme/lhm_theme_css' %}
+{% endblock styles %}

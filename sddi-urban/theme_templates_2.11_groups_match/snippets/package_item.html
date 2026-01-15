@@ -1,0 +1,16 @@
+{% ckan_extends %}
+
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=180) %}
+
+{% block package_item %}
+  <li class="{{ item_class or "dataset-item" }}">
+    {% block content %}
+        <div class="dataset-content">
+        {% block package_markers %}
+            {% snippet 'package/snippets/marker.html', pkg = package, group_icon = 'group-icon-overview' %}
+        {% endblock package_markers %}      
+        {{ super() }}
+        </div>
+    {% endblock content %}
+{% endblock package_item %}

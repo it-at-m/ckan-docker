@@ -1,0 +1,63 @@
+{% ckan_extends %}
+{{ super() }}
+
+{% set schema = h.scheming_get_dataset_schema(dataset_type) %}
+
+
+
+{% block package_description %}
+{% if pkg.private %}
+<span class="dataset-private badge badge-inverse">
+  <i class="fa fa-lock"></i>
+  {{ _('Private') }}
+</span>
+{% endif %}
+<div class="row">
+  <div class="column_date">
+    {% if pkg.letzter_import%}
+      <div class="last-data-import">
+            <span class="update-title">Letzter Import: </span>
+            <span class="update-date">{{ pkg.letzter_import }}</span>
+      </div>
+    {% endif %}
+  </div>
+  <div class="column_note">
+    <h1>
+      {% block page_heading %}
+        {{ h.dataset_display_name(pkg) }}
+        {% if pkg.state.startswith('draft') %}
+          [{{ _('Draft') }}]
+        {% endif %}
+        {% if pkg.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+        {% endif %}
+      {% endblock page_heading %}
+    </h1>
+    {% block package_notes %}
+      {% if pkg.notes %}
+        <div class="notes embedded-content">
+          {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+        </div>
+      {% endif %}
+    {% endblock package_notes %}
+  </div>
+</div>
+{% endblock package_description %}
+
+
+{% block package_resources %}
+<hr>
+{% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources,
+  can_edit=h.check_access('package_update', {'id':pkg.id }) %}
+<hr>
+{% endblock package_resources %}
+
+{% block package_tags %}
+<h3>Schlagworte</h3>
+    {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+{% endblock package_tags %}
+
+{% block package_additional_info %}
+  {% snippet "/package/snippets/additional_info.html",
+    pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+{% endblock package_additional_info %}

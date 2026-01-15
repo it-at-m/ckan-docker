@@ -1,0 +1,34 @@
+{% ckan_extends %}
+
+{{ super() }}
+
+{% block item_inner %}
+{% block image %}
+    <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group.name }}" class="media-image img-responsive">
+  {% endblock image %}
+  {% block title %}
+    <h2 class="media-heading">{{ group.display_name }}</h2>
+  {% endblock title %}
+  {% block description %}
+    {% if group.description %}
+      <p class="media-description">{{ h.markdown_extract(group.description, extract_length=80) }}</p>
+    {% endif %}
+  {% endblock description %}
+  {% block datasets %}
+    {% if group.package_count %}
+      <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</strong><br/>
+    {% elif group.package_count == 0 %}
+      <span class="count">{{ _('0 Datasets') }}</span><br/>
+    {% endif %}
+  {% endblock datasets %}
+  {% block capacity %}
+    {% if show_capacity and group.capacity %}
+    <p><span class="label label-default">{{ h.roles_translated().get(group.capacity, group.capacity) }}</span></p>
+    {% endif %}
+  {% endblock capacity %}
+  {% block link %}
+  <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}" class="media-view">
+    <span>{{ _('View {name}').format(name=group.display_name) }}</span>
+  </a>
+  {% endblock link %}
+{% endblock item_inner %}

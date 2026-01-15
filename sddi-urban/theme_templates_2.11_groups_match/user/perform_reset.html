@@ -1,0 +1,25 @@
+{% ckan_extends %}
+
+{% block form %}
+  <form action="" method="post">
+    {{ form.errors(error_summary) }}
+
+    {% if user_dict['state'] == 'pending' %}
+    {% if h.username_info() %}
+    <i class="fa fa-user"> {{ h.username_info() }}</i>
+    {% else %}
+      <p>{{ _('You can also change username. It can not be modified later.') }}</p>
+    {% endif %}
+    {{ form.input("name", id="field-name", label=_("Username"), type="text", value=user_dict["name"],
+    error='', attrs={'autocomplete': 'no', 'class': 'form-control control-medium'}, classes=["form-group"]) }}
+    {% endif %}
+    <i class="fa fa-lock"> {{ h.password_info() }} </i>
+    {{ form.input("password1", id="field-password", label=_("Password"), type="password", value='', error='', attrs={'autocomplete': 'no', 'class': 'form-control control-medium'}, classes=["form-group"]) }}
+    {{ form.input("password2", id="field-confirm-password", label=_("Confirm"), type="password", value='', error='', attrs={'autocomplete': 'no', 'class': 'form-control control-medium'}, classes=["form-group"]) }}
+    <div class="form-actions">
+      {% block form_button %}
+      <button class="btn btn-primary" type="submit" name="save">{{ _("Update Password") }}</button>
+      {% endblock form_button %}
+    </div>
+  </form>
+{% endblock form %}
