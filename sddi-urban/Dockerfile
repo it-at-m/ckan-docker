@@ -64,7 +64,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="a798242"
+ARG CKANEXT_LHM_VERSION="e39fd0f"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -354,7 +354,7 @@ RUN echo "${TZ}" > /etc/timezone
 # Install pandas for get_data.py, libreoffice for PDF generation
 # commented out libreoffice for development only because of long installation duration
 RUN pip install pandas
-#RUN yes | apt install libreoffice
+RUN yes | apt install libreoffice
 
 # Install gevent, which i required by uWSGI
 RUN pip install --no-cache-dir "gevent==24.11.1" "greenlet>=3.1.1"
