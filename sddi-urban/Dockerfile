@@ -64,7 +64,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="e39fd0f"
+ARG CKANEXT_LHM_VERSION="9062548"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -386,7 +386,7 @@ COPY tmp/template_v1.2.2.xlsx /srv/app/md_download/template_v1.2.2.xlsx
 COPY tmp/config-download.json /srv/app/md_download/config-download.json
 
 # TMP 211 adaptations
-COPY 211/read_base.html /usr/local/lib/python3.10/site-packages/ckanext/lhm/templates/package/read_base.html
+#COPY 211/read_base.html /usr/local/lib/python3.10/site-packages/ckanext/lhm/templates/package/read_base.html
 
 ## Not sure if thefollowing are needed: #############
 
