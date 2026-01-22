@@ -5,7 +5,7 @@ ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
 ARG BASEIMAGE_VERSION=3.1.1
 ARG CKAN_VERSION_BUILD_STAGE=2.11.2
 
-FROM ckan/ckan-base:${CKAN_VERSION_BUILD_STAGE} as extbuild
+FROM ckan/ckan-base:${CKAN_VERSION_BUILD_STAGE} AS extbuild
 
 USER root
 
@@ -284,7 +284,7 @@ RUN set -ex && \
 #RUN set -ex && \
 #  pip install repoze.who-friendlyform
 
-ENV CKAN__PLUGINS "image_view text_view datatables_view webpage_view \
+ENV CKAN__PLUGINS = "image_view text_view datatables_view webpage_view \
     scheming_datasets scheming_groups scheming_organizations \
     spatial_metadata spatial_query spatial_harvest_metadata_api \
     composite hierarchy_form lhm lhm_theme hierarchy_display \
