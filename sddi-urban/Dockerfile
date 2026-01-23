@@ -374,7 +374,7 @@ USER ckan
 # change ckan startscript for taking uwsgi worker number from uwsgi configMap
 # before, make a copy of original, for debugging, adaptaions ..
 # COPY /srv/app/start_ckan.sh /srv/app/start_ckan_orig.sh
-# COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
+COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
 
 # TMP: Copy changed add_dataset buttons
 COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.html
@@ -399,7 +399,7 @@ WORKDIR ${APP_DIR}
 ONBUILD RUN mkdir -p /docker-entrypoint.d
 
 # Supervisor start
-COPY supervisor/start-supervisor.sh /docker-entrypoint.d/start-supervisor.sh
+#COPY supervisor/start-supervisor.sh /docker-entrypoint.d/start-supervisor.sh
 RUN mkdir /srv/app/docker-afterinit.d
 COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
