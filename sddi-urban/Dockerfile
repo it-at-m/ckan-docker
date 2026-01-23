@@ -49,7 +49,7 @@ RUN set -ex && \
     git+${CKANEXT_RESOURCEDICTIONARY_GITHUB_URL}.git@${CKANEXT_RESOURCEDICTIONARY_VERSION}#egg=ckanext-resourcedictionary
 
 # ckanext-xloader ##########################################################
-ARG CKANEXT_XLOADER_VERSION="2.1.0"
+ARG CKANEXT_XLOADER_VERSION="2.2.0"
 ENV CKANEXT_XLOADER_VERSION=${CKANEXT_XLOADER_VERSION}
 ENV CKANEXT_XLOADER_GITHUB_URL="https://github.com/ckan/ckanext-xloader"
 
@@ -372,6 +372,8 @@ RUN rm -rf /srv/app/.local/lib/python3.10/site-packages/*
 USER ckan
 
 # change ckan startscript for taking uwsgi worker number from uwsgi configMap
+# before, make a copy of original, for debugging, adaptaions ..
+COPY /srv/app/start_ckan.sh /srv/app/start_ckan_orig.sh
 COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
 
 # TMP: Copy changed add_dataset buttons
@@ -398,6 +400,8 @@ ONBUILD RUN mkdir -p /docker-entrypoint.d
 
 # Supervisor start
 COPY supervisor/start-supervisor.sh /docker-entrypoint.d/start-supervisor.sh
+RUN mkdir /srv/app/docker-afterinit.d
+COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
 EXPOSE 5000
 HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://localhost:5000/api/3/action/status_show || exit CMD ["/srv/app/start_ckan.sh"]
