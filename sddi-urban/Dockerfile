@@ -373,8 +373,8 @@ USER ckan
 
 # change ckan startscript for taking uwsgi worker number from uwsgi configMap
 # before, make a copy of original, for debugging, adaptaions ..
-COPY /srv/app/start_ckan.sh /srv/app/start_ckan_orig.sh
-COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
+# COPY /srv/app/start_ckan.sh /srv/app/start_ckan_orig.sh
+# COPY startscript/start_ckan.sh /srv/app/start_ckan.sh
 
 # TMP: Copy changed add_dataset buttons
 COPY tmp/add_dataset.html /srv/app/src/ckan/ckan/templates/snippets/add_dataset.html
