@@ -64,7 +64,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="8352f8d"
+ARG CKANEXT_LHM_VERSION="e0c5cb2"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -387,9 +387,15 @@ RUN mkdir /srv/app/md_download
 COPY tmp/template_v1.2.2.xlsx /srv/app/md_download/template_v1.2.2.xlsx
 COPY tmp/config-download.json /srv/app/md_download/config-download.json
 
-# TMP 211 adaptations
+# CKAN 2.11 adaptations
+# - Override scheming resource_read (no possibility to extend snippet without changing order of scheming and lhm plugins, 
+#   new small plugin only with snippet extension could be a better longterm solution)
+# - Override datastore postgres.py (wrong privileges detection)
+# - Override ckan prerun.py (no permission to change ckan.ini during runtime)
 #COPY 211/read_base.html /usr/local/lib/python3.10/site-packages/ckanext/lhm/templates/package/read_base.html
 COPY 211/resource_read.html /usr/local/lib/python3.10/site-packages/ckanext/scheming/templates/scheming/package/resource_read.html
+COPY 211/postgres.py /srv/app/src/ckan/ckanext/datastore/backend/postgres.py
+COPY 211/prerun.py /srv/app/prerun.py
 
 ## Not sure if thefollowing are needed: #############
 
