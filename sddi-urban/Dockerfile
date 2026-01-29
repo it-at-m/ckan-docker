@@ -21,7 +21,9 @@ RUN apt-get update && apt-get install -y \
     libpcre3 \
     libffi-dev \
     libxml2-dev \
-    libxslt-dev
+    libxslt-dev \
+    clamav \
+    clamav-daemon 
 
 RUN pip install -U markupsafe==2.0.1 sqlalchemy==1.4.41
 
@@ -147,11 +149,13 @@ ARG CKANEXT_CALMAV_VERSION="c483b5d"
 ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
 
+RUN yes | pip uninstall ckanext-clamav
+
 RUN set -ex && \
   pip wheel --wheel-dir=/wheels -r \
-    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
   curl -o /wheels/ckanext-clamav.txt \
-    https://raw.githubusercontent.com/mutantsan/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
 
@@ -187,7 +191,7 @@ FROM ${BASEIMAGE_REPOSITORY}:${BASEIMAGE_VERSION} AS runtime
 
 ENV CKAN_DIR=${SRC_DIR}/ckan
 ENV DATA_DIR=/srv/app/data
-ENV UWSGI_HARAKIRI=50
+#ENV UWSGI_HARAKIRI=50
 
 USER root
 
