@@ -149,8 +149,6 @@ ARG CKANEXT_CALMAV_VERSION="c483b5d"
 ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-clamav"
 
-RUN yes | pip uninstall ckanext-clamav
-
 RUN set -ex && \
   pip wheel --wheel-dir=/wheels -r \
     https://raw.githubusercontent.com/gislab-augsburg/ckanext-clamav/${CKANEXT_CALMAV_VERSION}/requirements.txt && \
@@ -371,6 +369,10 @@ RUN chmod -R 777 /usr/local
 RUN cp -r /srv/app/.local/lib/python3.10/site-packages/* /usr/local/lib/python3.10/site-packages/
 # Remove the old folder to prevent confusion
 RUN rm -rf /srv/app/.local/lib/python3.10/site-packages/*
+
+# Force ckanext-clamav commit (because the copy above can overwrite it)
+RUN pip install --no-cache-dir --force-reinstall \
+  "git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav"
 
 # Change user
 USER ckan
