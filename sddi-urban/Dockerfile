@@ -181,6 +181,18 @@ RUN set -ex && \
 #  pip wheel --wheel-dir=/wheels \
 #    git+${CKANEXT_PASSWORD_POLICY_GITHUB_URL}.git@${CKANEXT_PASSWORD_POLICY_VERSION}#egg=ckanext-password-policy
 
+# ckanext-security ######################################################
+ARG CKANEXT_SECURITY_VERSION="0.0.1"
+ENV CKANEXT_SECURITY_VERSION=${CKANEXT_SECURITY_VERSION}
+ENV CKANEXT_SECURITY_GITHUB_URL="https://github.com/MarijaKnezevic/ckanext-security"
+
+RUN set -ex && \
+    curl -o /wheels/ckanext-security-requirements.txt \
+        https://raw.githubusercontent.com/MarijaKnezevic/ckanext-security/${CKANEXT_SECURITY_VERSION}/requirements.txt && \
+    pip install -r /wheels/ckanext-security-requirements.txt && \
+    pip wheel --wheel-dir=/wheels \
+        git+${CKANEXT_SECURITY_GITHUB_URL}.git@${CKANEXT_SECURITY_VERSION}#egg=ckanext-security
+
 
 # #############################################################################
 # # Runtime stage
@@ -287,8 +299,14 @@ RUN set -ex && \
 #RUN set -ex && \
 #  pip install repoze.who-friendlyform
 
-ENV CKAN__PLUGINS = "image_view text_view datatables_view webpage_view \
-    scheming_datasets scheming_groups scheming_organizations \
+# ckanext-security ######################################################
+RUN set -ex && \
+  pip install --find-links=${APP_DIR}/ext_wheels -r ${APP_DIR}/ext_wheels/ckanext-security-requirements.txt && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-security
+
+
+ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
+    security scheming_datasets scheming_groups scheming_organizations \
     spatial_metadata spatial_query spatial_harvest_metadata_api \
     composite hierarchy_form lhm lhm_theme hierarchy_display \
     resourcedictionary datastore xloader hierarchy_group_form \
@@ -316,7 +334,12 @@ RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
   ckan config-tool "${CKAN_INI}" "ckanext.spatial.use_postgis_sorting = true" && \
   ckan config-tool "${CKAN_INI}" "ckanext.dcat.enable_content_negotiation = true" && \
-  ckan config-tool "${CKAN_INI}" "ckan.default.package_type = dataset"
+  ckan config-tool "${CKAN_INI}" "ckan.default.package_type = dataset" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.security.lock_timeout = 900" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.security.login_max_count = 3" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.security.brute_force_key = user_name" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.security.disable_password_reset_override = true" && \
+  ckan config-tool "${CKAN_INI}" "ckanext.security.enable_totp = false"
 
 # Enable debug + templates + (optionally) keep Profiler enabled
 #RUN ckan config-tool "${CKAN_INI}" \
