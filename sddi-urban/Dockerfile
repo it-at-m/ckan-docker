@@ -21,9 +21,9 @@ RUN apt-get update && apt-get install -y \
     libpcre3 \
     libffi-dev \
     libxml2-dev \
-    libxslt-dev \
-    clamav \
-    clamav-daemon 
+    libxslt-dev
+    #clamav \
+    #clamav-daemon 
 
 RUN pip install -U markupsafe==2.0.1 sqlalchemy==1.4.41
 
@@ -217,9 +217,10 @@ RUN pip install 'ckanext-fdt-sqlalchemy[deps]'
 WORKDIR ${CKAN_DIR}
 
 # ckanext-spatial #############################################################
+ENV CKANEXT_SPATIAL_VERSION="v2.3.1"
 RUN set -ex && \
-  pip install -e 'git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial' && \
-  pip install -r 'https://raw.githubusercontent.com/ckan/ckanext-spatial/master/requirements.txt'
+  pip install -e 'git+https://github.com/ckan/ckanext-spatial.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial' && \
+  pip install -r 'https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements.txt'
 
 # ckanext-resourcedictionary ##################################################
 RUN set -ex && \
