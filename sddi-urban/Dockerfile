@@ -219,8 +219,8 @@ WORKDIR ${CKAN_DIR}
 # ckanext-spatial #############################################################
 ENV CKANEXT_SPATIAL_VERSION="v2.3.1"
 RUN set -ex && \
-  pip install -e 'git+https://github.com/ckan/ckanext-spatial.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial' && \
-  pip install -r 'https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements.txt'
+  pip install -e git+https://github.com/ckan/ckanext-spatial.git@${CKANEXT_SPATIAL_VERSION}#egg=ckanext-spatial && \
+  pip install -r https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements.txt
 
 # ckanext-resourcedictionary ##################################################
 RUN set -ex && \
