@@ -425,6 +425,7 @@ COPY tmp/config-download.json /srv/app/md_download/config-download.json
 #   new small plugin only with snippet extension could be a better longterm solution)
 # - Override datastore postgres.py (wrong privileges detection)
 # - Override ckan prerun.py (no permission to change ckan.ini during runtime)
+# - Override resource-view-filters.js (no working possibility to translate js with babel translations)
 #COPY 211/read_base.html /usr/local/lib/python3.10/site-packages/ckanext/lhm/templates/package/read_base.html
 COPY 211/resource_read.html /usr/local/lib/python3.10/site-packages/ckanext/scheming/templates/scheming/package/resource_read.html
 COPY 211/postgres.py /srv/app/src/ckan/ckanext/datastore/backend/postgres.py
