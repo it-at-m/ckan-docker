@@ -95,15 +95,6 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_HARVEST_GITHUB_URL}.git@${CKANEXT_HARVEST_VERSION}#egg=ckanext-harvest
 
-## ckanext-scheming ##########################################################
-#ARG CKANEXT_SCHEMING_VERSION="85eea67"
-#ENV CKANEXT_SCHEMING_VERSION=${CKANEXT_SCHEMING_VERSION}
-#ENV CKANEXT_SCHEMING_GITHUB_URL="https://github.com/ckan/ckanext-scheming"
-#
-#RUN set -ex && \
-#  pip wheel --wheel-dir=/wheels \
-#    git+${CKANEXT_SCHEMING_GITHUB_URL}.git@${CKANEXT_SCHEMING_VERSION}#egg=ckanext-scheming
-
 # ckanext-glab ##########################################################
 ARG CKANEXT_GLAB_VERSION="0612d22"
 ENV CKANEXT_GLAB_VERSION=${CKANEXT_GLAB_VERSION}
@@ -167,19 +158,6 @@ RUN set -ex && \
     #https://raw.githubusercontent.com/EnviDat/ckanext-composite/${CKANEXT_COMPOSITE_VERSION}/dev-requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_COMPOSITE_GITHUB_URL}.git@${CKANEXT_COMPOSITE_VERSION}#egg=ckanext-composite
-
-# ckanext-password-policy #####################################################
-#ARG CKANEXT_PASSWORD_POLICY_VERSION="5618dc9"
-#ENV CKANEXT_PASSWORD_POLICY_VERSION=${CKANEXT_PASSWORD_POLICY_VERSION}
-#ENV CKANEXT_PASSWORD_POLICY_GITHUB_URL="https://github.com/keitaroinc/ckanext-password-policy"
-#
-#RUN set -ex && \
-#  pip install -r \
-#    https://raw.githubusercontent.com/keitaroinc/ckanext-password-policy/${CKANEXT_PASSWORD_POLICY_VERSION}/requirements.txt && \
-#  curl -o /wheels/ckanext-password-policy.txt \
-#    https://raw.githubusercontent.com/keitaroinc/ckanext-password-policy/${CKANEXT_PASSWORD_POLICY_VERSION}/requirements.txt && \
-#  pip wheel --wheel-dir=/wheels \
-#    git+${CKANEXT_PASSWORD_POLICY_GITHUB_URL}.git@${CKANEXT_PASSWORD_POLICY_VERSION}#egg=ckanext-password-policy
 
 # ckanext-security ######################################################
 ARG CKANEXT_SECURITY_VERSION="0.0.1"
@@ -256,12 +234,6 @@ RUN set -ex && \
   pip install -r ${APP_DIR}/ext_wheels/ckanext-harvest-dev.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-harvest
 
-## ckanext-scheming #############################################################
-## uninstall previous version from sddi-base
-#RUN yes | pip uninstall ckanext-scheming
-#RUN set -ex && \
-#  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-scheming
-
 # ckanext-glab #############################################################
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-glab
@@ -290,23 +262,14 @@ RUN set -ex && \
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-composite
 
-# ckanext-password-policy #####################################################
-#RUN set -ex && \
-#  pip install -r ${APP_DIR}/ext_wheels/ckanext-password-policy.txt && \
-#  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-password-policy
-
-# for password_policy ckan 2.11
-#RUN set -ex && \
-#  pip install repoze.who-friendlyform
-
 # ckanext-security ######################################################
 RUN set -ex && \
   pip install --find-links=${APP_DIR}/ext_wheels -r ${APP_DIR}/ext_wheels/ckanext-security-requirements.txt && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-security
 
 
-ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
-    security scheming_datasets scheming_groups scheming_organizations \
+ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view security\
+    scheming_nerf_index scheming_datasets scheming_groups scheming_organizations \
     spatial_metadata spatial_query spatial_harvest_metadata_api \
     composite hierarchy_form lhm lhm_theme hierarchy_display \
     resourcedictionary datastore xloader hierarchy_group_form \
@@ -319,16 +282,8 @@ ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view 
 #  ckan generate config ${CKAN_INI}
 
 # Create data dir, in CAP done by extra Volume
-# Not necessary (?) because we use create it via PVC 
+# Not necessary because we use create it via PVC 
 #RUN mkdir /srv/app/data
-
-# install supervisor (old, as root) ########################################################
-#RUN set -ex && \
-#  apt-get update && \
-#  apt-get -y install supervisor
-#COPY supervisor/supervisor-ckan-worker.conf /etc/supervisor/conf.d
-#COPY supervisor/supervisord.conf /etc/supervisor
-#COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 
 RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckan.plugins = ${CKAN__PLUGINS}" && \
@@ -341,21 +296,12 @@ RUN set -ex && \
   ckan config-tool "${CKAN_INI}" "ckanext.security.disable_password_reset_override = true" && \
   ckan config-tool "${CKAN_INI}" "ckanext.security.enable_totp = false"
 
-# Enable debug + templates + (optionally) keep Profiler enabled
-#RUN ckan config-tool "${CKAN_INI}" \
-  #"debug = true" \
-  #"ckan.debug_templates = true"
-  #"DEBUG_TB_ENABLED = false" \
-  #"DEBUG_TB_INTERCEPT_REDIRECTS = false"
-
 # Remove wheels
 RUN set -ex && \
   rm -rf ${APP_DIR}/ext_wheels && \
   # Remove init script
   rm -f ${APP_DIR}/docker-afterinit.d/01_create_groups.sh
 
-# Change user
-#USER root
 
 # install supervisor ########################################################
 RUN set -ex && \
@@ -369,7 +315,7 @@ COPY supervisor/supervisord.conf /etc/supervisor
 ENV TZ="Europe/Berlin"
 RUN echo "${TZ}" > /etc/timezone
 
-## Add debug capabilities
+## Add extended debug capabilities, optional
 #ADD https://raw.githubusercontent.com/ckan/ckan/ckan-2.9.9/dev-requirements.txt /dev-requirements.txt
 #RUN set -ex && \
 #  pip install -r /dev-requirements.txt && \
@@ -378,11 +324,10 @@ RUN echo "${TZ}" > /etc/timezone
 
 # Download button
 # Install pandas for get_data.py, libreoffice for PDF generation
-# commented out libreoffice for development only because of long installation duration
 RUN pip install pandas
 RUN yes | apt install libreoffice
 
-# Install gevent, which i required by uWSGI
+# Install gevent, which is required by uWSGI
 RUN pip install --no-cache-dir "gevent==24.11.1" "greenlet>=3.1.1"
 
 # Change permissions recursively for all files in the local folders ? Needed?
@@ -432,8 +377,7 @@ COPY 211/postgres.py /srv/app/src/ckan/ckanext/datastore/backend/postgres.py
 COPY 211/prerun.py /srv/app/prerun.py
 COPY 211/resource-view-filters.js /srv/app/src/ckan/ckan/public/base/javascript/modules/resource-view-filters.js
 
-## Not sure if thefollowing are needed: #############
-
+# Define Working directory
 WORKDIR ${APP_DIR}
 
 # Create entrypoint directory for children image scripts
@@ -447,11 +391,4 @@ COPY supervisor/start-supervisor.sh /srv/app/docker-afterinit.d
 EXPOSE 5000
 HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://localhost:5000/api/3/action/status_show || exit CMD ["/srv/app/start_ckan.sh"]
 
-
 CMD ["/srv/app/start_ckan.sh"]
-
-###################################################
-
-# TMP remaining changes in ckanext-lhm for upgrade
-#COPY theme_templates_2.11_groups_match /srv/app/.local/lib/python3.10/site-packages/ckanext/lhm/theme_templates_2.9.9
-
