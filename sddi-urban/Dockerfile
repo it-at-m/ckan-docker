@@ -66,7 +66,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="a7d95a4"
+ARG CKANEXT_LHM_VERSION="73030b6"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -158,7 +158,7 @@ RUN set -ex && \
     git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav
 
 ## ckanext-composite ###########################################################
-ARG CKANEXT_COMPOSITE_VERSION="1e6d7bb"
+ARG CKANEXT_COMPOSITE_VERSION="ea65c2a"
 ENV CKANEXT_COMPOSITE_VERSION=${CKANEXT_COMPOSITE_VERSION}
 ENV CKANEXT_COMPOSITE_GITHUB_URL="https://github.com/EnviDat/ckanext-composite"
 
