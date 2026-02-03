@@ -1,5 +1,5 @@
 # ###############################################################################
-# ## Build stage
+# # Build stage
 # ##############################################################################
 ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
 ARG BASEIMAGE_VERSION=3.1.1
