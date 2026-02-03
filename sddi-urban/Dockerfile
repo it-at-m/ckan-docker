@@ -429,6 +429,7 @@ COPY tmp/config-download.json /srv/app/md_download/config-download.json
 COPY 211/resource_read.html /usr/local/lib/python3.10/site-packages/ckanext/scheming/templates/scheming/package/resource_read.html
 COPY 211/postgres.py /srv/app/src/ckan/ckanext/datastore/backend/postgres.py
 COPY 211/prerun.py /srv/app/prerun.py
+COPY 211/resource-view-filters.js /srv/app/src/ckan/ckan/public/base/javascript/modules/resource-view-filters.js
 
 ## Not sure if thefollowing are needed: #############
 
