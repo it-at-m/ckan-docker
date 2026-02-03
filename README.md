@@ -91,12 +91,12 @@ stabile Versionsnummer oder einen Commit-Hash festgelegt.
 > Weitere Entwicklungs-Images können stattdessen von upstream-Branches abhängen.
 
 | Extension | Version | `sddi-base` | `sddi-urban` | Beschreibung |
-|---|---|:---:|:---:|:---:|:---:|---|
+|---|---|:---:|:---:|:---|
 | [`ckanext-hierarchy`](https://github.com/ckan/ckanext-hierarchy) | `v1.2.2` | :heavy_check_mark: | :heavy_check_mark: | Erlaubt es, Organisationen und Gruppen in hierarchisch zu organisieren (Obergruppen, Untergruppen und -Organisationen). |
 | [`ckanext-scheming`](https://github.com/ckan/ckanext-scheming) | `27035f4` | :heavy_check_mark: | :heavy_check_mark: | Konfiguration und teilen von CKAN Metadaten-Formularen. |
 | [`ckanext-geoview`](https://github.com/ckan/ckanext-geoview) | `v0.2.2` | :heavy_check_mark: | :heavy_check_mark: | Diese Erweiterung enthält Ansichts-Plugins, um raumbezogene Dateien und Dienste (z.B. WMS) in CKAN anzuzeigen. |
 | [`ckanext-clamav (sddi-base)`](https://github.com/DataShades/ckanext-clamav), [`ckanext-clamav (sddi-urban)`](https://github.com/gislab-augsburg/ckanext-clamav) | `a1d23ac`, `c483b5d` | :heavy_check_mark: | :heavy_check_mark: | Scannt hochgeladene Ressourcen-Dateien auf Malware mit der ClamD-Library. |
-| [`dcat`](https://github.com/ckan/ckanext-dcat) | ` v1.5.1` | :heavy_check_mark: | :heavy_check_mark: | Ermöglicht es CKAN, Metadaten aus anderen Katalogen zu exponieren und zu konsumieren, indem RDF-Dokumente verwendet werden, die mit DCAT serialisiert sind. |
+| [`dcat`](https://github.com/ckan/ckanext-dcat) | `v1.5.1` | :heavy_check_mark: | :heavy_check_mark: | Ermöglicht es CKAN, Metadaten aus anderen Katalogen zu exponieren und zu konsumieren, indem RDF-Dokumente verwendet werden, die mit DCAT serialisiert sind. |
 | [`ckanext-spatial`](https://github.com/ckan/ckanext-spatial) | `v2.3.1` |  | :heavy_check_mark: | Bietet die Möglichkeit, über ihre räumliche Ausdehnung nach Datensätzen zu suchen sowie Harvesting von ISO-19115 Metadaten via CSW-Schnittstelle |
 | [`ckanext-resourcedictionary`](https://github.com/keitaroinc/ckanext-resourcedictionary) | `v1.0.0` |  | :heavy_check_mark: | Erweitert die Standardfunktionalität des CKAN Data Dictionary, indem die Möglichkeit hinzugefügt wird, ein Data Dictionary zu erstellen, bevor die tatsächlichen Daten in den Datenspeicher hochgeladen werden..  |
 | [`ckanext-xloader`](https://github.com/ckan/ckanext-xloader) | `2.2.0` |  | :heavy_check_mark: | Bietet eine schnellere und robustere Möglichkeit, Daten in CKANs DataStore zu laden. |
