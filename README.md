@@ -44,14 +44,14 @@ Initial sind folgende Plugins aktiviert:
 
 ```yaml
 plugins: >
-  activity image_view text_view datatables_view webpage_view security
+  activity image_view text_view datatables_view webpage_view
   scheming_nerf_index scheming_datasets scheming_groups scheming_organizations
   spatial_metadata spatial_query spatial_harvest_metadata_api
   composite hierarchy_form lhm lhm_theme hierarchy_display
   resourcedictionary datastore xloader hierarchy_group_form
   resource_proxy geo_view geojson_view wmts_view shp_view
   harvest ckan_harvester csw_harvester waf_harvester doc_harvester
-  gdpr iso keycloak noanonaccess clamav envvars
+  gdpr iso keycloak noanonaccess security clamav envvars
 ```
 
 Diese Image beinhaltet außerdem ein etwas anderes Set an vorinstallierten SDDI Gruppen und Themen

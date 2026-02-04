@@ -268,14 +268,14 @@ RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-security
 
 
-ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view security\
+ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
     scheming_nerf_index scheming_datasets scheming_groups scheming_organizations \
     spatial_metadata spatial_query spatial_harvest_metadata_api \
     composite hierarchy_form lhm lhm_theme hierarchy_display \
     resourcedictionary datastore xloader hierarchy_group_form \
     resource_proxy geo_view geojson_view wmts_view shp_view \
     harvest ckan_harvester csw_harvester waf_harvester doc_harvester\
-    gdpr iso keycloak noanonaccess clamav envvars"
+    gdpr iso keycloak noanonaccess security clamav envvars"
 
 # No config generation because we use local-ini via ConfigMap
 #RUN set -ex && \
