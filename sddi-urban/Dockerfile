@@ -38,20 +38,20 @@ RUN set -ex && \
     https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements-py2.txt
   
 # ckanext-resourcedictionary ##########################################################
-ARG CKANEXT_RESOURCEDICTIONARY_VERSION="v1.0.0"
+ARG CKANEXT_RESOURCEDICTIONARY_VERSION="2305560"
 ENV CKANEXT_RESOURCEDICTIONARY_VERSION=${CKANEXT_RESOURCEDICTIONARY_VERSION}
-ENV CKANEXT_RESOURCEDICTIONARY_GITHUB_URL="https://github.com/keitaroinc/ckanext-resourcedictionary"
+ENV CKANEXT_RESOURCEDICTIONARY_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-resourcedictionary"
 
 RUN set -ex && \
   pip install -r \
-    https://raw.githubusercontent.com/keitaroinc/ckanext-resourcedictionary/${CKANEXT_RESOURCEDICTIONARY_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-resourcedictionary/${CKANEXT_RESOURCEDICTIONARY_VERSION}/requirements.txt && \
   curl -o /wheels/ckanext-resourcedictionary.txt \
-    https://raw.githubusercontent.com/keitaroinc/ckanext-resourcedictionary/${CKANEXT_RESOURCEDICTIONARY_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-resourcedictionary/${CKANEXT_RESOURCEDICTIONARY_VERSION}/requirements.txt && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_RESOURCEDICTIONARY_GITHUB_URL}.git@${CKANEXT_RESOURCEDICTIONARY_VERSION}#egg=ckanext-resourcedictionary
 
 # ckanext-xloader ##########################################################
-ARG CKANEXT_XLOADER_VERSION="1.0.1"
+ARG CKANEXT_XLOADER_VERSION="2.2.0"
 ENV CKANEXT_XLOADER_VERSION=${CKANEXT_XLOADER_VERSION}
 ENV CKANEXT_XLOADER_GITHUB_URL="https://github.com/ckan/ckanext-xloader"
 
