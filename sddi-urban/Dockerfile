@@ -38,7 +38,7 @@ RUN set -ex && \
     https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements-py2.txt
   
 # ckanext-resourcedictionary ##########################################################
-ARG CKANEXT_RESOURCEDICTIONARY_VERSION="2305560"
+ARG CKANEXT_RESOURCEDICTIONARY_VERSION="37c8fd6"
 ENV CKANEXT_RESOURCEDICTIONARY_VERSION=${CKANEXT_RESOURCEDICTIONARY_VERSION}
 ENV CKANEXT_RESOURCEDICTIONARY_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-resourcedictionary"
 
