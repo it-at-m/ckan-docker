@@ -51,7 +51,7 @@ RUN set -ex && \
     git+${CKANEXT_RESOURCEDICTIONARY_GITHUB_URL}.git@${CKANEXT_RESOURCEDICTIONARY_VERSION}#egg=ckanext-resourcedictionary
 
 # ckanext-xloader ##########################################################
-ARG CKANEXT_XLOADER_VERSION="2.2.0"
+ARG CKANEXT_XLOADER_VERSION="1.0.1"
 ENV CKANEXT_XLOADER_VERSION=${CKANEXT_XLOADER_VERSION}
 ENV CKANEXT_XLOADER_GITHUB_URL="https://github.com/ckan/ckanext-xloader"
 
