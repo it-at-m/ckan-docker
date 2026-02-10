@@ -114,7 +114,7 @@ RUN set -ex && \
     git+${CKANEXT_ISO_GITHUB_URL}.git@${CKANEXT_ISO_VERSION}#egg=ckanext-iso
 
 # ckanext-keycloak ##########################################################
-ARG CKANEXT_KEYCLOAK_VERSION="da6b273"
+ARG CKANEXT_KEYCLOAK_VERSION="1f57fcb"
 ENV CKANEXT_KEYCLOAK_VERSION=${CKANEXT_KEYCLOAK_VERSION}
 ENV CKANEXT_KEYCLOAK_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-keycloak"
 
