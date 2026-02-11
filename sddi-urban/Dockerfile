@@ -1,5 +1,5 @@
 # ###############################################################################
-# ## Build stage
+# # Build stage
 # ##############################################################################
 ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
 ARG BASEIMAGE_VERSION=3.1.1
@@ -38,7 +38,7 @@ RUN set -ex && \
     https://raw.githubusercontent.com/ckan/ckanext-spatial/${CKANEXT_SPATIAL_VERSION}/requirements-py2.txt
   
 # ckanext-resourcedictionary ##########################################################
-ARG CKANEXT_RESOURCEDICTIONARY_VERSION="75db7bf"
+ARG CKANEXT_RESOURCEDICTIONARY_VERSION="275ae3e"
 ENV CKANEXT_RESOURCEDICTIONARY_VERSION=${CKANEXT_RESOURCEDICTIONARY_VERSION}
 ENV CKANEXT_RESOURCEDICTIONARY_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-resourcedictionary"
 
