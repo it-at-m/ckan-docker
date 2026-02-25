@@ -2,7 +2,20 @@
 
 {% set dataset_type = dataset_type if dataset_type else 'dataset' %}
 
-{% link_for _('Datensatz Geodatenpool erstellen'), named_route='geodatenpool.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+<div style="display: inline-block; margin-bottom: 3px;">
+    {% link_for _('Datensatz Geodatenpool erstellen'), named_route='geodatenpool.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+</div>
 
-{% link_for _('Datensatz Mobidam erstellen'), named_route='mobidam.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+<div style="display: inline-block; margin-bottom: 3px;">
+    {% link_for _('Datensatz Mobidam erstellen'), named_route='mobidam.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+</div>
 
+<div style="display: inline-block; margin-bottom: 3px;">
+    {% link_for _('Datensatz Geoportal erstellen'), named_route='geoportal.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+</div>
+
+<div style="display: inline-block; margin-bottom: 3px;">
+    {% if h.check_access('sysadmin') %}
+        {% link_for _('Datensätze Geoportal auf Pycsw Server laden'), named_route='lhm_view.test_csw_push', class_='btn btn-primary' %}
+    {% endif %}
+</div>
