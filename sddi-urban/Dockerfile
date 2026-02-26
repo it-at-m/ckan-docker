@@ -66,7 +66,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="9f28c99"
+ARG CKANEXT_LHM_VERSION="ee7e32f"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
