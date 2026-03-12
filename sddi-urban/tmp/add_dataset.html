@@ -15,7 +15,7 @@
 </div>
 
 <div style="display: inline-block; margin-bottom: 3px;">
-    {% if h.check_access('sysadmin') and h.ckan_config.get('ckan.pycsw_enabled') == 'true' %}
+    {% if h.check_access('sysadmin') and h.config.get('ckan.pycsw_enabled') == 'true' %}
         {% link_for _('Datensätze Geoportal auf Pycsw Server laden'), named_route='lhm_view.test_csw_push', class_='btn btn-primary' %}
     {% endif %}
 </div>
