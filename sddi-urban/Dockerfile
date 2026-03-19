@@ -165,8 +165,11 @@ ENV CKANEXT_SECURITY_VERSION=${CKANEXT_SECURITY_VERSION}
 ENV CKANEXT_SECURITY_GITHUB_URL="https://github.com/MarijaKnezevic/ckanext-security"
 
 RUN set -ex && \
-  pip wheel --wheel-dir=/wheels \
-    git+${CKANEXT_SECURITY_GITHUB_URL}.git@${CKANEXT_SECURITY_VERSION}#egg=ckanext-security
+    curl -o /wheels/ckanext-security-requirements.txt \
+        https://raw.githubusercontent.com/MarijaKnezevic/ckanext-security/${CKANEXT_SECURITY_VERSION}/requirements.txt && \
+    pip install -r /wheels/ckanext-security-requirements.txt && \
+    pip wheel --wheel-dir=/wheels \
+        git+${CKANEXT_SECURITY_GITHUB_URL}.git@${CKANEXT_SECURITY_VERSION}#egg=ckanext-security
 
 # ckanext-geoview #############################################################
 ARG CKANEXT_GEOVIEW_VERSION="848fea5"
@@ -174,11 +177,8 @@ ENV CKANEXT_GEOVIEW_VERSION=${CKANEXT_GEOVIEW_VERSION}
 ENV CKANEXT_GEOVIEW_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-geoview"
 
 RUN set -ex && \
-    curl -o /wheels/ckanext-geoview-dev-requirements.txt \
-        ${CKANEXT_GEOVIEW_GITHUB_URL}/raw/${CKANEXT_GEOVIEW_VERSION}/dev-requirements.txt && \
-    pip install -r /wheels/ckanext-geoview-dev-requirements.txt && \
-    pip wheel --wheel-dir=/wheels \
-        git+${CKANEXT_GEOVIEW_GITHUB_URL}.git@${CKANEXT_GEOVIEW_VERSION}#egg=ckanext-geoview
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_GEOVIEW_GITHUB_URL}.git@${CKANEXT_GEOVIEW_VERSION}#egg=ckanext-geoview
 
 
 # #############################################################################
