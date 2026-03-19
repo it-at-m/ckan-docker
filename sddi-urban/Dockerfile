@@ -363,6 +363,13 @@ ENV CKANEXT_CALMAV_VERSION=${CKANEXT_CALMAV_VERSION}
 ENV CKANEXT_CALMAV_GITHUB_URL=${CKANEXT_CALMAV_GITHUB_URL}
 RUN pip install --no-cache-dir --force-reinstall "git+${CKANEXT_CALMAV_GITHUB_URL}.git@${CKANEXT_CALMAV_VERSION}#egg=ckanext-clamav"
 
+# Force ckanext-geoview commit (because the copy above can overwrite it)
+ARG CKANEXT_GEOVIEW_VERSION="848fea5"
+ENV CKANEXT_GEOVIEW_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-geoview"
+ENV CKANEXT_GEOVIEW_VERSION=${CKANEXT_GEOVIEW_VERSION}
+ENV CKANEXT_GEOVIEW_GITHUB_URL=${CKANEXT_GEOVIEW_GITHUB_URL}
+RUN pip install --no-cache-dir --force-reinstall "git+${CKANEXT_GEOVIEW_GITHUB_URL}.git@${CKANEXT_GEOVIEW_VERSION}#egg=ckanext-clamav"
+
 # Change user
 USER ckan
 
