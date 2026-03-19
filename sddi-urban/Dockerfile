@@ -200,6 +200,7 @@ RUN update-locale LANG=${LC_ALL}
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Get artifacts from build stages
+RUN rm -rf ${APP_DIR}/ext_wheels/*
 COPY --from=extbuild /wheels ${APP_DIR}/ext_wheels
 
 RUN chown -R ckan:ckan-sys ${APP_DIR}
@@ -278,9 +279,9 @@ RUN set -ex && \
 
 # ckanext-geoview #############################################################
 # uninstall previous version from sddi-base
-RUN yes | pip uninstall ckanext-geoview
+RUN pip uninstall -y ckanext-geoview || true
 RUN set -ex && \
-  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-geoview
+  pip install --no-cache-dir --no-index --force-reinstall --find-links=${APP_DIR}/ext_wheels ckanext-geoview
 
 
 ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
