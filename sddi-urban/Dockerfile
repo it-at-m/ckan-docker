@@ -1,9 +1,9 @@
 # ###############################################################################
 # ## Build stage
 # ##############################################################################
-ARG BASEIMAGE_REPOSITORY=ghcr.io/tum-gis/ckan-sddi-base
-ARG BASEIMAGE_VERSION=3.1.1
-ARG CKAN_VERSION_BUILD_STAGE=2.11.2
+ARG BASEIMAGE_REPOSITORY=ghcr.io/it-at-m/ckan-sddi-base
+ARG BASEIMAGE_VERSION=udp-katalog-base-2.11.5
+ARG CKAN_VERSION_BUILD_STAGE=2.11.5
 
 FROM ckan/ckan-base:${CKAN_VERSION_BUILD_STAGE} AS extbuild
 
