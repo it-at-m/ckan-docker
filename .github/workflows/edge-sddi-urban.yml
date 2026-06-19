@@ -41,7 +41,7 @@ jobs:
             ${{ env.REGISTRY }}/it-at-m/ckan-${{ matrix.context }}
           tags: |
             type=edge,branch=poc-gp-2.11,suffix=-2.11
-            type=raw,value=udp-katalog-1.3.5-dev-12
+            type=raw,value=udp-katalog-1.3.5-dev-13
           labels: |
             maintainer=it@m, Landeshauptstadt Muenchen (LHM)
             org.opencontainers.image.vendor=it@m, Landeshauptstadt Muenchen (LHM)
