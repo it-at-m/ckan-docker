@@ -1,5 +1,5 @@
 # ###############################################################################
-# ## Build stage
+# # Build stage
 # ##############################################################################
 ARG BASEIMAGE_REPOSITORY=ghcr.io/it-at-m/ckan-sddi-base
 ARG BASEIMAGE_VERSION=udp-katalog-base-2.11.5
