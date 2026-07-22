@@ -180,6 +180,19 @@ RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
     git+${CKANEXT_GEOVIEW_GITHUB_URL}.git@${CKANEXT_GEOVIEW_VERSION}#egg=ckanext-geoview
 
+# ckanext-relation ############################################################
+ARG CKANEXT_RELATION_VERSION="1.1.2"
+ENV CKANEXT_RELATION_VERSION=${CKANEXT_RELATION_VERSION}
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+https://github.com/tum-gis/ckanext-relation-sddi.git@${CKANEXT_RELATION_VERSION}#egg=ckanext-relation && \
+  pip wheel --wheel-dir=/wheels -r \
+    https://raw.githubusercontent.com/tum-gis/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+  curl -o /wheels/ckanext-relation.txt \
+    https://raw.githubusercontent.com/tum-gis/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+  ls -lah /wheels
+
 
 # #############################################################################
 # # Runtime stage
@@ -282,6 +295,10 @@ RUN set -ex && \
 RUN pip uninstall -y ckanext-geoview || true
 RUN set -ex && \
   pip install --no-cache-dir --no-index --force-reinstall --find-links=${APP_DIR}/ext_wheels ckanext-geoview
+
+# ckanext-relation ############################################################
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-relation
 
 
 ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
