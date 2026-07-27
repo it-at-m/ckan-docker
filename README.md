@@ -34,7 +34,7 @@
   </a>
 </p>
 
-This repository provides [CKAN](https://github.com/ckan) Docker images for the
+This repository provides [CKAN](https://github.com/ckan) Docker images for the xyz test
 [`sddi-ckan-k8s`](https://github.com/tum-gis/sddi-ckan-k8s) Helm chart.
 The images contain CKAN itself compiled with a set of CKAN extension to add functionality required for
 the SDDI concept and beyond that.
