@@ -66,7 +66,7 @@ RUN set -ex && \
     git+${CKANEXT_XLOADER_GITHUB_URL}.git@${CKANEXT_XLOADER_VERSION}#egg=ckanext-xloader
 
 # ckanext-lhm ##########################################################
-ARG CKANEXT_LHM_VERSION="520007e"
+ARG CKANEXT_LHM_VERSION="5716449"
 ENV CKANEXT_LHM_VERSION=${CKANEXT_LHM_VERSION}
 ENV CKANEXT_LHM_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-lhm"
 
@@ -181,16 +181,16 @@ RUN set -ex && \
     git+${CKANEXT_GEOVIEW_GITHUB_URL}.git@${CKANEXT_GEOVIEW_VERSION}#egg=ckanext-geoview
 
 # ckanext-relation ############################################################
-ARG CKANEXT_RELATION_VERSION="1.1.2"
+ARG CKANEXT_RELATION_VERSION="f64726c"
 ENV CKANEXT_RELATION_VERSION=${CKANEXT_RELATION_VERSION}
 
 RUN set -ex && \
   pip wheel --wheel-dir=/wheels \
-    git+https://github.com/tum-gis/ckanext-relation-sddi.git@${CKANEXT_RELATION_VERSION}#egg=ckanext-relation && \
+    git+https://github.com/gislab-augsburg/ckanext-relation-sddi.git@${CKANEXT_RELATION_VERSION}#egg=ckanext-relation && \
   pip wheel --wheel-dir=/wheels -r \
-    https://raw.githubusercontent.com/tum-gis/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
   curl -o /wheels/ckanext-relation.txt \
-    https://raw.githubusercontent.com/tum-gis/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
   ls -lah /wheels
 
 
