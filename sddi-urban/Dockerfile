@@ -105,7 +105,7 @@ RUN set -ex && \
     git+${CKANEXT_GLAB_GITHUB_URL}.git@${CKANEXT_GLAB_VERSION}#egg=ckanext-glab
 
 # ckanext-iso ##########################################################
-ARG CKANEXT_ISO_VERSION="7d688d5"
+ARG CKANEXT_ISO_VERSION="3b5bd84"
 ENV CKANEXT_ISO_VERSION=${CKANEXT_ISO_VERSION}
 ENV CKANEXT_ISO_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-iso"
 
