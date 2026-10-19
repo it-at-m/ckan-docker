@@ -51,7 +51,7 @@ plugins: >
   resourcedictionary datastore xloader hierarchy_group_form
   resource_proxy geo_view geojson_view wmts_view shp_view
   harvest ckan_harvester csw_harvester waf_harvester doc_harvester
-  gdpr iso keycloak noanonaccess security clamav envvars
+  gdpr iso keycloak noanonaccess security clamav relation envvars
 ```
 
 Diese Image beinhaltet außerdem ein etwas anderes Set an vorinstallierten SDDI Gruppen und Themen
