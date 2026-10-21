@@ -193,6 +193,15 @@ RUN set -ex && \
     https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
   ls -lah /wheels
 
+# ckanext-scheme-sddi #############################################################
+ARG CKANEXT_SCHEME_SDDI_VERSION="ac00493"
+ENV CKANEXT_SCHEME_SDDI_VERSION=${CKANEXT_SCHEME_SDDI_VERSION}
+ENV CKANEXT_SCHEME_SDDI_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-scheme-sddi"
+
+RUN set -ex && \
+  pip wheel --wheel-dir=/wheels \
+    git+${CKANEXT_SCHEME_SDDI_GITHUB_URL}.git@${CKANEXT_SCHEME_SDDI_VERSION}#egg=ckanext-scheme-sddi
+
 
 # #############################################################################
 # # Runtime stage
@@ -300,10 +309,14 @@ RUN set -ex && \
 RUN set -ex && \
   pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-relation
 
+# ckanext-scheme-sddi ############################################################
+RUN set -ex && \
+  pip install --no-index --find-links=${APP_DIR}/ext_wheels ckanext-scheme-sddi
+
 
 ENV CKAN__PLUGINS = "activity image_view text_view datatables_view webpage_view \
     scheming_nerf_index scheming_datasets scheming_groups scheming_organizations \
-    spatial_metadata spatial_query spatial_harvest_metadata_api \
+    scheme_sddi spatial_metadata spatial_query spatial_harvest_metadata_api \
     composite hierarchy_form lhm lhm_theme hierarchy_display \
     resourcedictionary datastore xloader hierarchy_group_form \
     resource_proxy geo_view geojson_view wmts_view shp_view \
