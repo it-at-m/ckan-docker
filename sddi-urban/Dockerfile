@@ -194,7 +194,7 @@ RUN set -ex && \
   ls -lah /wheels
 
 # ckanext-scheme-sddi #############################################################
-ARG CKANEXT_SCHEME_SDDI_VERSION="ac00493"
+ARG CKANEXT_SCHEME_SDDI_VERSION="f00ad4c"
 ENV CKANEXT_SCHEME_SDDI_VERSION=${CKANEXT_SCHEME_SDDI_VERSION}
 ENV CKANEXT_SCHEME_SDDI_GITHUB_URL="https://github.com/gislab-augsburg/ckanext-scheme-sddi"
 
