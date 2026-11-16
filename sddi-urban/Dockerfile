@@ -184,14 +184,24 @@ RUN set -ex && \
 ARG CKANEXT_RELATION_VERSION="f64726c"
 ENV CKANEXT_RELATION_VERSION=${CKANEXT_RELATION_VERSION}
 
+#RUN set -ex && \
+#  pip wheel --wheel-dir=/wheels \
+#    git+https://github.com/gislab-augsburg/ckanext-relation-sddi.git@${CKANEXT_RELATION_VERSION}#egg=ckanext-relation && \
+#  pip wheel --wheel-dir=/wheels -r \
+#    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+#  curl -o /wheels/ckanext-relation.txt \
+#    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
+#  ls -lah /wheels
+
 RUN set -ex && \
-  pip wheel --wheel-dir=/wheels \
-    git+https://github.com/gislab-augsburg/ckanext-relation-sddi.git@${CKANEXT_RELATION_VERSION}#egg=ckanext-relation && \
-  pip wheel --wheel-dir=/wheels -r \
-    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
-  curl -o /wheels/ckanext-relation.txt \
-    https://raw.githubusercontent.com/gislab-augsburg/ckanext-relation-sddi/${CKANEXT_RELATION_VERSION}/requirements.txt && \
-  ls -lah /wheels
+    src="$(mktemp -d)" && \
+    git clone https://github.com/gislab-augsburg/ckanext-relation-sddi.git "$src" && \
+    git -C "$src" checkout --detach "${CKANEXT_RELATION_VERSION}" && \
+    pip wheel --wheel-dir=/wheels "$src" && \
+    pip wheel --wheel-dir=/wheels -r "$src/requirements.txt" && \
+    cp "$src/requirements.txt" /wheels/ckanext-relation.txt && \
+    rm -rf "$src" && \
+    ls -lah /wheels
 
 # ckanext-scheme-sddi #############################################################
 ARG CKANEXT_SCHEME_SDDI_VERSION="55d087e"
